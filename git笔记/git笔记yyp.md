@@ -1,0 +1,11 @@
+- 【1】git init // 初始化
+- 【2】git add . // 添加新文件
+- 【3】git commit -m "desc0008" // 提交到本地仓库
+- 【4】git remote add origin https://github.com/balzac233/testBw_yyl_yyp.git // 关联远程仓库
+- 【5】git pull --rebase origin master // 第一次先拉取远程库中的 README.md 和.gitignore 等文件
+- 【6】git push -u origin master // 【5】 运行失误，可能得先象征性新建文件试试。这部先不执行
+  新建一些文件，重新执行 2 和 3，然后再执行 6
+- 【7】git branch // 6 好像执行成功了，默认分支好像是 main，那现在先看本地的分支情况
+- [8] git branch main // 新建一个和远程仓库默认分支名称一样的分支
+- 【9】git checkout main // 重新执行 7 查看新增分支是否成功，然后再用这个命令切换到 main,再执行 7 查看是否切换分支成功
+- 【10】git pull --rebase origin main // 这个就是执行 5，不过把想要拉取的分支换一下。
