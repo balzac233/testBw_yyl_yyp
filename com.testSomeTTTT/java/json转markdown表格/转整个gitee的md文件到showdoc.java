@@ -46,44 +46,54 @@ public class 转整个gitee的md文件到showdoc {
          */
 
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
-        String origin = "#### URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/repairUserType?token=\n" +
-                "#### 请求方式: POST\n" +
-                "#### 负责人：蔡绍东\n" +
-                "#### 参数: \n" +
+        String origin = "- 请求地址:\n" +
+                "\n" +
+                "```text\n" +
+                "/lyws-inspect/inspectionStatistics/trend\n" +
                 "```\n" +
+                "\n" +
+                "- 请求参数:\n" +
+                "\n" +
+                "```json\n" +
                 "{\n" +
-                "    \"finishType\":\"完工类型（1：完工，2：完成）（int）（必须）\",\n" +
-                "    \"projectId\":\"项目id（string）（必须）\",\n" +
-                "    \"startTime\":\"开始时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选，不传默认查询当月）\",\n" +
-                "    \"endTime\":\"结束时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选）\",\n" +
-                "    \"serviceId\":\"服务类型id（string）（可选）\"\n" +
+                "    \"projectId\":\"\", // 项目id\n" +
+                "    \"startYear\":\"\", // 计划开始时间年份\n" +
+                "    \"specialtyIdList\":[ // 专业id集合\n" +
+                "        \"\",\n" +
+                "        \"\"\n" +
+                "    ],\n" +
+                "    \"finishStatus\":[ // 工单状态(unBegin:待接单; processing:进行中; finish:已完成; termination:已终止; overdue:已逾期)\n" +
+                "        \"\",\n" +
+                "        \"\"\n" +
+                "    ],\n" +
+                "    \"finishResult\":\"\", // 巡检结果(abNormal:有异常; normal:正常; empty:无; 什么也不传就是所有)\n" +
+                "    \"executorType\":\"\",  // 执行人类型(maintainer:维保商; tenant:租户; orgUser:本项目组织机构)\n" +
+                "    \"executor\":\"\"  // 执行人\n" +
                 "}\n" +
                 "```\n" +
-                "#### 返回值：\n" +
+                "\n" +
+                "- 请求方式:\n" +
+                "\n" +
+                "```text\n" +
+                "post\n" +
                 "```\n" +
+                "\n" +
+                "- 响应结果:\n" +
+                "\n" +
+                "```json\n" +
                 "{\n" +
-                "    \"code\":200,\n" +
-                "    \"msg\":\"success\",\n" +
-                "    \"val\":{\n" +
-                "        \"totalCount\":\"工单总数量（int）\",\n" +
-                "        \"countStatisticList\":[\n" +
-                "            {\n" +
-                "                \"count\":\"当前分类工单总数量（int）\",\n" +
-                "                \"processCount\":\"未完工数量（int）\",\n" +
-                "                \"finishCount\":\"已完工数量（int）\",\n" +
-                "                \"proportion\":\"占比（string）\",\n" +
-                "                \"userType\":\"报单对象类型（int）\",\n" +
-                "                \"userTypeName\":\"报单对象名称（string）\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    \"success\":1\n" +
+                "    \"code\": 200,\n" +
+                "    \"msg\": \"success\",\n" +
+                "    \"val\": [ // 各个月份工单数量集合\n" +
+                "        {\n" +
+                "            \"month\":\"\", // 月份(1:一月; 2:二月; ……)\n" +
+                "            \"lastYearCount\":\"\", // 选择的年份的上一年工单数量\n" +
+                "            \"thisYearCount\":\"\" // 选择的年份的工单数量\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"success\": 1\n" +
                 "}\n" +
-                "```\n" +
-                "#### 导出URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/repairUserType/export?token=\n" +
-                "#### 请求方式: POST\n" +
-                "#### 负责人：蔡绍东\n" +
-                "#### 参数: 同上";
+                "```";
         origin = origin + "\n";
 
 //        // 最后一行经常因为没有\n检测不到,加上
@@ -94,11 +104,132 @@ public class 转整个gitee的md文件到showdoc {
 //        toShowDocResMultiLevelv2(origin, 0);
 
 //        System.out.println(toShowDocMultiLevel(origin,0,false));
-        System.out.println(toWholeShowDoc(origin));
+//        System.out.println("=============================================");
+//        System.out.println(toShowDocMultiLevel(origin,0,true));
+
+        if (origin.contains("# 请求方式")){
+            System.out.println(toWholeShowDoc(origin));
+            if (!origin.contains("# 返回值") && !origin.contains("# 返回示例") && !origin.contains("# 响应结果")  ){
+                origin = origin + " \n\n#### 返回值：\n" +
+                        "```\n" +
+                        "{\n" +
+                        "    暂无\n" +
+                        "}\n" +
+                        "``` ";
+            }
+        }else if (origin.contains("- 请求方式")){
+            if (!origin.contains("- 响应结果")){
+                origin = origin + "\n\n- 响应结果\n" +
+                        "```\n" +
+                        "    暂无\n" +
+                        "```";
+            }
+            System.out.println(toWholeShowDoc2(origin));
+        }else{
+            throw new Exception("检查下这个接口文档的请求方式在哪");
+        }
+
 
 //        partsList.stream().forEach(a-> System.out.println(a+"\n\n===============================================\n\n"));
 //        System.out.println("==================================");
 
+    }
+
+    /**
+     * 有种是这类格式
+     * - 请求地址:
+     *
+     * ```text
+     * /lyws-inspect/checkStatistics/unqualified/export
+     * ```
+     * 给这种也写个方法.
+     */
+    private static String toWholeShowDoc2(String origin) throws Exception {
+        StringBuilder res = new StringBuilder("##### 简要描述\n" +
+                "\n" +
+                "-   TTTTT自己替换下标题TTTTT\n\n");
+
+        // 传参和返参所在的部分可以用"返回示例"或者"返回值"字样来区分开
+        int splitIndex = 0;
+        List<String> partsList = new ArrayList<>();
+        // 返回示例后面跟着的一般就是返回值json了,不能用返回参数说明什么的来分割,因为返回参数说明一般都是在返回示例下面的
+        if (origin.contains("返回示例")) {
+            String[] returns = origin.split("返回示例");
+            Arrays.stream(returns).forEach(a -> partsList.add(a));
+        } else if (origin.contains("返回值")) {
+            String[] returns = origin.split("返回值");
+            Arrays.stream(returns).forEach(a -> partsList.add(a));
+            // editflag001
+        } else if (origin.contains("响应结果")) {
+            String[] returns = origin.split("响应结果");
+            Arrays.stream(returns).forEach(a -> partsList.add(a));
+        }
+        if (null == partsList || partsList.size() <= 0) {
+            throw new Exception("出错了,这个可能没返回值");
+        }
+        String part01 = partsList.get(0);
+        String part02 = partsList.get(1);
+        String param1 = part01.substring(part01.indexOf("```json"), part01.lastIndexOf("- 请求方式") );
+//        System.out.println(param1+"\n\n=======================================\n\n");
+        String param2 = part02.substring(part02.indexOf("```"), part02.lastIndexOf("`") + 1);
+//        System.out.println(param2);
+
+
+        String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0,false);
+        String mdTable2 = toShowDocMultiLevel(partsList.get(1), 0,true);
+//        String mdTable2 = toShowDocResMultiLevelv2(partsList.get(1), 0);
+        // 标题的正则   (.*里头是标题)
+        String titleExp = "#*\\s*(标题|title)(\\s*:\\s*)(.*)(\\n)";
+        // 请求url的正则 #*\s*(url|URL|Url)(\s*:\s*)(.*)(\n)
+        String urlExp = "(\\s*-\\s*请求地址\\s*:\\s*)(\\n*)(```.*\\n)(.*\\n)(```\\s*?\\n)";
+        // 请求方式的正则
+        String postExp = "(\\x20*-\\s*请求方式\\s*:\\s*)(\\n*)(```.*\\n)(.*\\n)(```\\x20*?)";
+
+        Pattern pattern = Pattern.compile(titleExp);
+        Matcher matcher = pattern.matcher(origin);
+        if (matcher.find()) {
+            res.append(matcher.group(3) + "  \n");
+        }
+        res.append("##### 请求 URL\n" +
+                "\n" +
+                "- `     ");
+        pattern = Pattern.compile(urlExp);
+        matcher = pattern.matcher(origin);
+        if (matcher.find()) {
+            res.append(matcher.group(4) + "    `\n");
+        }
+        res.append("\n" +
+                "##### 请求方式\n" +
+                "\n" +
+                "-   ");
+        pattern = Pattern.compile(postExp);
+        matcher = pattern.matcher(origin);
+        if (matcher.find()) {
+            res.append(matcher.group(4) + "  \n");
+        }
+        res.append("\n" +
+                "##### 参数\n" +
+                "\n" +
+                "| 参数名   | 必选 | 类型   | <div style=\"min-width:400px;\" ></div>说明   |\n" +
+                "| :------- | :--- | :----- | ------ |\n");
+        res.append(mdTable1 + "\n");
+        res.append("\n" +
+                "- 参数示例\n" +
+                "\n");
+        res.append(param1);
+        res.append("\n" +
+                "##### 返回示例\n");
+        res.append(param2);
+        res.append("\n" +
+                "##### 返回参数说明\n\n| 参数名   | 类型   | <div style=\"min-width:400px;\" ></div>说明         |\n" +
+                "| :------ | :----- | --------------------------------------------------- |\n");
+        res.append(mdTable2 + "\n");
+        res.append("\n" +
+                "##### 备注\n" +
+                "\n" +
+                "- 更多返回错误代码请看首页的错误代码描述");
+//        System.out.println(res.toString());
+        return res.toString();
     }
 
     //
@@ -134,7 +265,7 @@ public class 转整个gitee的md文件到showdoc {
 
 
         String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0,false);
-        String mdTable2 = toShowDocMultiLevel(partsList.get(0), 0,true);
+        String mdTable2 = toShowDocMultiLevel(partsList.get(1), 0,true);
 //        String mdTable2 = toShowDocResMultiLevelv2(partsList.get(1), 0);
         // 标题的正则   (.*里头是标题)
         String titleExp = "#*\\s*(标题|title)(\\s*:\\s*)(.*)(\\n)";
