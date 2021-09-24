@@ -14,6 +14,12 @@ public class java读文件 {
 
     public static void main(String[] args) {
 
+        String a = "fefwefwefwe(必须)rgreger";
+        String b = "必须";
+        if (a.contains(b)){
+            a = a.replace("("+b+")","").replace("["+b+"]","");
+        }
+        System.out.println(a);
     }
 
     public static String readFileContent(String fileName) {
