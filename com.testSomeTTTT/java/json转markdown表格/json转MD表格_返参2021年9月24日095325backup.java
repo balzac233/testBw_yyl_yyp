@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * @author: yyp
  * @create: 2021-09-24
  **/
-public class json转MD表格_返参 {
+public class json转MD表格_返参2021年9月24日095325backup {
 
     //    private static Set<String> isRequired = new HashSet<>(Arrays.asList("非必传"));
     private static List<String> isRequired = Arrays.asList("非必传","不必传输","不必传","可选","选填");
@@ -28,6 +28,97 @@ public class json转MD表格_返参 {
         // 对象数组的名字例如退格是4,然后他的格式就是"iiifff":[然后直接换行,后面每个对象外框退格是12(但是单个{不会被正则匹配到),每个对象的子参数就是20了.也就是参数里最后两个对象数组
         // 对象的格式是退格例如是4,格式是"manufacturer":{,下一个匹配到的子变量应该是12的前置空格
         // 如果是普通对象,普通对象的内容没有冒号不会被匹配进去,下一个对象就是他本身也就是
+//        String origin = "```\n" +
+//                "{\n" +
+//                "    \"projectId\":\"\", // 项目 id [String](必传)\n" +
+//                "    \"spaceInstallId\":\"\", // 安装位置 [String](必传)\n" +
+//                "    \"platformEquId\":\"\", // 设备标准名 id（设备分类组成的一部分） [String](必传)\n" +
+//                "    \"equName\":\"\", // 设备名称 [String](必传)\n" +
+//                "    \"equCode\":\"\", // 设备编码 [String](必传)\n" +
+//                "    \"equStatus\":\"\", // 设备状态（run：运行; malfunction：故障; scrapped：报废; maintain：维修; disable：停用） [String](必传)\n" +
+//                "    \"equBrand\":\"\", // 设备品牌 [String](不必传)\n" +
+//                "    \"equModel\":\"\", // 设备型号 [String](不必传)\n" +
+//                "    \"productDate\":\"\", // 出厂日期 [date](不必传)\n" +
+//                "    \"useDate\":\"\", // 投用日期 [date](必传)\n" +
+//                "    \"designLife\":\"\", // 设计寿命 [int](必传)\n" +
+//                "    \"equLevel\":\"\", // 设备重要性（A：最高 B：次之 C：最低） [String](不必传)\n" +
+//                "    \"detailAddress\":\"\", // 详细位置 [String](不必传)\n" +
+//                "    \"forceInspect\":\"\", // 是否强制性检验: 强制-true,不强制-false [boolean](不必传)\n" +
+//                "    \"remark\":\"\", // 备注 [String](不必传)\n" +
+//                "    \"isIot\":\"\", // 是否是 iot 设备 [boolean](不必传)\n" +
+//                "    \"iotSupplierId\":\"\", // iot 设备数据采集供应商 [String](不必传)\n" +
+//                "    \"iotEquArg\":\"\", // iot 设备参数 [String](不必传)\n" +
+//                "    \"spaceServices\":[ // 服务位置 id 集合 [String[]](不必传)\n" +
+//                "            \"\",\n" +
+//                "            \"\"\n" +
+//                "    ],\n" +
+//                "    \"equFiles\":[ // 图片 id 集合 [String[]](不必传)\n" +
+//                "            \"\",\n" +
+//                "            \"\"\n" +
+//                "    ],\n" +
+//                "    \"manufacturer\":{\n" +
+//                "            \"objectId\":\"\",// 生产商 Id\n" +
+//                "            \"name\":\"\", // 生产商名称\n" +
+//                "            \"contact\":\"\", // 生产商联系人\n" +
+//                "            \"phone\":\"\", // 生产商联系电话\n" +
+//                "            \"address\":\"\" // 生产商地址\n" +
+//                "    },\n" +
+//                "    \"supplier\":{\n" +
+//                "            \"objectId\":\"\",// 供应商 Id\n" +
+//                "            \"name\":\"\", // 供应商名称\n" +
+//                "            \"contact\":\"\", // 供应商联系人\n" +
+//                "            \"phone\":\"\", // 供应商联系电话\n" +
+//                "            \"address\":\"\" // 供应商地址\n" +
+//                "    },\n" +
+//                "    \"installFactor\":{\n" +
+//                "            \"objectId\":\"\",// 安装单位 Id\n" +
+//                "            \"name\":\"\", // 安装单位名称\n" +
+//                "            \"contact\":\"\", // 安装单位联系人\n" +
+//                "            \"phone\":\"\", // 安装单位联系电话\n" +
+//                "            \"address\":\"\" // 安装单位地址\n" +
+//                "    }\n" +
+//                "    \"sssppp\":[\n" +
+//                "            {\n" +
+//                "                    \"objectId\":\"\",// 供应商 Id\n" +
+//                "                    \"name\":\"\", // 供应商名称\n" +
+//                "                    \"contact\":\"\", // 供应商联系人\n" +
+//                "                    \"phone\":\"\", // 供应商联系电话\n" +
+//                "                    \"address\":\"\" // 供应商地址\n" +
+//                "            },\n" +
+//                "            {\n" +
+//                "                    \"objectId\":\"\",// 供应商 Id\n" +
+//                "                    \"name\":\"\", // 供应商名称\n" +
+//                "                    \"contact\":\"\", // 供应商联系人\n" +
+//                "                    \"phone\":\"\", // 供应商联系电话\n" +
+//                "                    \"address\":\"\" // 供应商地址\n" +
+//                "            },\n" +
+//                "    ],\n" +
+//                "    \"iiifff\":[\n" +
+//                "            {\n" +
+//                "                    \"objectId\":\"\",// 安装单位 Id\n" +
+//                "                    \"name\":\"\", // 安装单位名称\n" +
+//                "                    \"contact\":\"\", // 安装单位联系人\n" +
+//                "                    \"phone\":\"\", // 安装单位联系电话\n" +
+//                "                    \"address\":\"\" // 安装单位地址\n" +
+//                "            },\n" +
+//                "                        {\n" +
+//                "                    \"objectId\":\"\",// 安装单位 Id\n" +
+//                "                    \"name\":\"\", // 安装单位名称\n" +
+//                "                    \"contact\":\"\", // 安装单位联系人\n" +
+//                "                    \"phone\":\"\", // 安装单位联系电话\n" +
+//                "                    \"address\":\"\" // 安装单位地址\n" +
+//                "            },\n" +
+//                "                        {\n" +
+//                "                    \"objectId\":\"\",// 安装单位 Id\n" +
+//                "                    \"name\":\"\", // 安装单位名称\n" +
+//                "                    \"contact\":\"\", // 安装单位联系人\n" +
+//                "                    \"phone\":\"\", // 安装单位联系电话\n" +
+//                "                    \"address\":\"\" // 安装单位地址\n" +
+//                "            }\n" +
+//                "    ]\n" +
+//                "}\n" +
+//                "```\n";
+
         // (暂时未解决多个对象的问题,后面再说) ,
         // 如果是因为多个对象导致重复操作的麻烦上面多复制一行(也就是复制一个一级的),前面空格尽量少于8个,大于等于八个会去找父亲,这样的话第一个没父亲就会下标越界
         // ,把对象名和复制出来,否则子集找不到父亲会报错
@@ -46,11 +137,14 @@ public class json转MD表格_返参 {
                 "    \"startTime\":\"开始时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选，不传默认查询当月）\",\n" +
                 "    \"endTime\":\"结束时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选）\",\n" +
                 "    \"serviceId\":\"服务类型id（string）（可选）\"";
+
         // 最后一行经常因为没有\n检测不到,加上
         origin = origin + "\n";
-//        生成[[传参]]md表格
+
         toShowDocMultiLevel(origin, 0);
-//      生成md[[返参]]表格
+//        System.out.println("===============上面的是传参,下面的是返参====================");
+//        toShowDocRes(origin, 1);
+//        System.out.println("==========================尝试多级返参===========================");
         toShowDocResMultiLevelv2(origin, 0);
     }
 
@@ -297,9 +391,8 @@ public class json转MD表格_返参 {
         System.out.println(res.toString());
         return res.toString();
     }
-
     /**
-     * @Description 避免上面看起来太长,加个查找字段类型的方法
+     * 避免上面看起来太长,加个查找字段类型的方法
      */
     static String searchFieldType(String explainStr){
         // string[] 这种的判断放在  string前面,必经string[]里面也包含string这个字符串
