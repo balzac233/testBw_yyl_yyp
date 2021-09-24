@@ -1,9 +1,6 @@
 package json转markdown表格;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,12 +9,13 @@ import java.util.regex.Pattern;
  * @author: yyp
  * @create: 2021-09-24
  **/
-public class json转MD表格_返参 {
+public class 转整个gitee的md文件到showdoc {
 
     //    private static Set<String> isRequired = new HashSet<>(Arrays.asList("非必传"));
-    private static List<String> notRequired = Arrays.asList("非必传","不必传输","不必传","可选","选填");
-    private static List<String> isRequired = Arrays.asList("必传","必填");
-    public static void main(String[] args) {
+    private static List<String> notRequired = Arrays.asList("非必传", "不必传输", "不必传", "可选", "选填");
+    private static List<String> isRequired = Arrays.asList("必传", "必填");
+
+    public static void main(String[] args) throws Exception {
 
         // 系统关键字:   [   ]   {   }   "  :   ,   \n   #  ,     注释不要换行写.推荐写在参数后面,注释可以用// 或者 # ,后面可以写一些系统关键字,因为不会被记入括号匹配
         // 参数名称一定要加引号,然后写上冒号(均为英文),后面再写参数值和注释,参数名符合命名规范,是字符数字下划线
@@ -41,7 +39,15 @@ public class json转MD表格_返参 {
          *     },
          *     前面的 "supplier":{  和   后面的  },   尽量都复制就行,然后最后出来的结果不要复制这些
          */
-        String origin = "    \"finishType\":\"完工类型（1：完工，2：完成）（int）（必须）\",\n" +
+
+        // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
+        String origin = "#### URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/repairTrend?token=\n" +
+                "#### 请求方式: POST\n" +
+                "#### 负责人：蔡绍东\n" +
+                "#### 参数: \n" +
+                "```\n" +
+                "{\n" +
+                "    \"finishType\":\"完工类型（1：完工，2：完成）（int）（必须）\",\n" +
                 "    \"projectId\":\"项目id（string）（必须）\",\n" +
                 "    \"searchYearList\":\"报单时间（int数组，如：[2019,2020]）（必选）\",\n" +
                 "    \"from\":\"报单来源（int数组，如：[1,2,3]）（可选）\",\n" +
@@ -54,21 +60,164 @@ public class json转MD表格_返参 {
                 "    \"equTypeLevel\":\"设备系统级别（int, 1：主系统  2：子系统  3：标准设备）（可选，equTypeId有值时必传）\",\n" +
                 "    \"dataType\":\"执行人类型 (0：个人，1：组织)（int）（可选）\",\n" +
                 "    \"repairUserId\":\"当dataType=0时，为报单人id，当dataType=1时，为orgId（string）（可选）\",\n" +
-                "    \"associateEqu\":\"是否关联设备 0：否 1是\"";
-        // 最后一行经常因为没有\n检测不到,加上
-        origin = origin + "\n";
-//        生成[[传参]]md表格
-        toShowDocMultiLevel(origin, 0);
-//      生成md[[返参]]表格
-        toShowDocResMultiLevelv2(origin, 0);
+                "    \"associateEqu\":\"是否关联设备 0：否 1是\"\n" +
+                "}\n" +
+                "```\n" +
+                "#### 返回值：\n" +
+                "```\n" +
+                "{\n" +
+                "    \"code\": 200,\n" +
+                "    \"msg\": \"success\",\n" +
+                "    \"val\": [\n" +
+                "        {\n" +
+                "            \"year\": \"报单时间（int，如：2019）\",\n" +
+                "            \"repairCountMap\": {\n" +
+                "                \"1\": \"一月工单数量（int）\",\n" +
+                "                \"2\": \"二月工单数量（int）\",\n" +
+                "                \"3\": \"三月工单数量（int）\",\n" +
+                "                \"4\": \"四月工单数量（int）\",\n" +
+                "                \"5\": \"五月工单数量（int）\",\n" +
+                "                \"6\": \"六月工单数量（int）\",\n" +
+                "                \"7\": \"七月工单数量（int）\",\n" +
+                "                \"8\": \"八月工单数量（int）\",\n" +
+                "                \"9\": \"九月工单数量（int）\",\n" +
+                "                \"10\": \"十月工单数量（int）\",\n" +
+                "                \"11\": \"十一月工单数量（int）\",\n" +
+                "                \"12\": \"十二月工单数量（int）\"\n" +
+                "            }\n" +
+                "        },\n" +
+                "        {\"（同上）\"\n" +
+                "            \"year\": 2020,\n" +
+                "            \"repairCountMap\": {\n" +
+                "                \"1\": 0,\n" +
+                "                \"2\": 0,\n" +
+                "                \"3\": 0,\n" +
+                "                \"4\": 0,\n" +
+                "                \"5\": 0,\n" +
+                "                \"6\": 0,\n" +
+                "                \"7\": 0,\n" +
+                "                \"8\": 0,\n" +
+                "                \"9\": 0,\n" +
+                "                \"10\": 0,\n" +
+                "                \"11\": 0,\n" +
+                "                \"12\": 0\n" +
+                "            }\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"success\": 1\n" +
+                "}\n" +
+                "```\n" +
+                "#### 导出URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/repairTrend/export?token=\n" +
+                "#### 请求方式: POST\n" +
+                "#### 负责人：蔡绍东\n" +
+                "#### 参数: 同上";
+
+//        // 最后一行经常因为没有\n检测不到,加上
+//        origin = origin + "\n";
+////        生成[[传参]]md表格
+//        toShowDocMultiLevel(origin, 0);
+////      生成md[[返参]]表格
+//        toShowDocResMultiLevelv2(origin, 0);
+
+
+        System.out.println(toWholeShowDoc(origin));
+
+//        partsList.stream().forEach(a-> System.out.println(a+"\n\n===============================================\n\n"));
+//        System.out.println("==================================");
+
+    }
+
+    //
+    private static String toWholeShowDoc(String origin) throws Exception {
+        StringBuilder res = new StringBuilder("##### 简要描述\n" +
+                "\n" +
+                "-   TTTTT自己替换下标题TTTTT\n\n");
+
+        // 传参和返参所在的部分可以用"返回示例"或者"返回值"字样来区分开
+        int splitIndex = 0;
+        List<String> partsList = new ArrayList<>();
+        // 返回示例后面跟着的一般就是返回值json了,不能用返回参数说明什么的来分割,因为返回参数说明一般都是在返回示例下面的
+        if (origin.contains("返回示例")) {
+            String[] returns = origin.split("返回示例");
+            Arrays.stream(returns).forEach(a -> partsList.add(a));
+        } else if (origin.contains("返回值")) {
+            String[] returns = origin.split("返回值");
+            Arrays.stream(returns).forEach(a -> partsList.add(a));
+        }
+        if (null == partsList || partsList.size() <= 0) {
+            throw new Exception("出错了,这个可能没返回值");
+        }
+        String part01 = partsList.get(0);
+        String part02 = partsList.get(1);
+        String param1 = part01.substring(part01.indexOf("`"), part01.lastIndexOf("`") + 1);
+//        System.out.println(param1+"\n\n=======================================\n\n");
+        String param2 = part02.substring(part02.indexOf("`"), part02.lastIndexOf("`") + 1);
+//        System.out.println(param2);
+
+
+        String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0);
+        String mdTable2 = toShowDocResMultiLevelv2(partsList.get(1), 0);
+        // 标题的正则   (.*里头是标题)
+        String titleExp = "#*\\s*(标题|title)(\\s*:\\s*)(.*)(\\n)";
+        // 请求url的正则 #*\s*(url|URL|Url)(\s*:\s*)(.*)(\n)
+        String urlExp = "#*\\s*(url|URL|Url)(\\s*:\\s*)(.*)(\\n)";
+        // 请求方式的正则
+        String postExp = "#*\\s*(请求方式)(\\s*:\\s*)(.*)(\\n)";
+
+        Pattern pattern = Pattern.compile(titleExp);
+        Matcher matcher = pattern.matcher(origin);
+        if (matcher.find()) {
+            res.append(matcher.group(3) + "  \n");
+        }
+        res.append("##### 请求 URL\n" +
+                "\n" +
+                "- `     ");
+        pattern = Pattern.compile(urlExp);
+        matcher = pattern.matcher(origin);
+        if (matcher.find()) {
+            res.append(matcher.group(3) + "    `\n");
+        }
+        res.append("\n" +
+                "##### 请求方式\n" +
+                "\n" +
+                "-   ");
+        pattern = Pattern.compile(postExp);
+        matcher = pattern.matcher(origin);
+        if (matcher.find()) {
+            res.append(matcher.group(3) + "  \n");
+        }
+        res.append("\n" +
+                "##### 参数\n" +
+                "\n" +
+                "| 参数名   | 必选 | 类型   | <div style=\"min-width:400px;\" ></div>说明   |\n" +
+                "| :------- | :--- | :----- | ------ |\n");
+        res.append(mdTable1 + "\n");
+        res.append("\n" +
+                "- 参数示例\n" +
+                "\n");
+        res.append(param1);
+        res.append("\n" +
+                "##### 返回示例\n");
+        res.append(param2);
+        res.append("\n" +
+                "##### 返回参数说明\n\n");
+        res.append(mdTable2 + "\n");
+        res.append("\n" +
+                "##### 备注\n" +
+                "\n" +
+                "- 更多返回错误代码请看首页的错误代码描述");
+//        System.out.println(res.toString());
+        return res.toString();
     }
 
     /**
      * @Description json转为markdown的表格
      * 暂时处理不了多个对象的情况,还有层级太多有多个对象也麻烦
      */
-    private static String toShowDocMultiLevel(String origin, int pp) {// ,int pp
-        System.out.println("==========================尝试多级传参===========================");
+    private static String toShowDocMultiLevel(String origin, int pp) {
+
+        // ,int pp
+//        System.out.println("==========================尝试多级传参===========================");
         // 检测重复(用于对象数组的情况)
         Set<String> variableName = new HashSet<>();
         Set<String> repeatingObject = new HashSet<>();
@@ -92,10 +241,11 @@ public class json转MD表格_返参 {
         String[] explainArr = explain.toString().split("#");
         int flag = 0;
         String flagStr = "";
-        forOne:for (int i = 0; i < sArr.length; i++) {
+        forOne:
+        for (int i = 0; i < sArr.length; i++) {
             // 不同层级的objectId给区分开来,同层级的不允许重复出现
 //            这个是用于判断是否该写入markdown表格的的key
-            String key = sArr[i]+""+spaceArr[i].length();
+            String key = sArr[i] + "" + spaceArr[i].length();
 //            请检查
 //            if (explainArr[i-1].replace(" ","").equals("{") || explainArr[i-1].replace(" ","").equals("[") ){
 //                flagStr = sArr[i-1];
@@ -109,7 +259,7 @@ public class json转MD表格_返参 {
 //                flagStr = "";
 //            }
 
-            if (spaceArr[i].length()>=8 && (explainArr[i - 1].replace(" ", "").equals("{") || explainArr[i - 1].replace(" ", "").equals("["))) {
+            if (spaceArr[i].length() >= 8 && (explainArr[i - 1].replace(" ", "").equals("{") || explainArr[i - 1].replace(" ", "").equals("["))) {
                 flagStr = sArr[i - 1];
                 String repeatingKey = flagStr + key;
                 repeatingObject.add(repeatingKey);
@@ -122,12 +272,12 @@ public class json转MD表格_返参 {
 //                    continue forOne;
 //                }
             } else {
-                variableName.add(sArr[i]+""+spaceArr[i].length());
+                variableName.add(sArr[i] + "" + spaceArr[i].length());
             }
             res.append("|");
             // 一个制表符是4个空格,一般来说第一级是4个空格,第二级是12个空格,第三级是20个空格,这里我选/8,每级多个+号
 //            暂时没有遇到4,8,12的情况
-            int spaceCount = (spaceArr[i].replace("\t","    ").length()) / 8;
+            int spaceCount = (spaceArr[i].replace("\t", "    ").length()) / 8;
             for (int j = 0; j < spaceCount; j++) {
                 res.append("+");
             }
@@ -137,18 +287,18 @@ public class json转MD表格_返参 {
 //            }else {
 //                res.append(" | 是 ");
 //            }
-            String explainStr = explainArr[i].replace("\"\", //","");
+            String explainStr = explainArr[i].replace("\"\", //", "");
 //            String explainStr = explainArr[i];
             String isR = " | 是 ";
-            for (String a:notRequired){
-                if (explainStr.contains(a)){
-                    explainStr = explainStr.replace("（"+a+"）","").replace("["+a+"]","");
+            for (String a : notRequired) {
+                if (explainStr.contains(a)) {
+                    explainStr = explainStr.replace("（" + a + "）", "").replace("[" + a + "]", "");
                     isR = " | 否 ";
                 }
             }
-            for (String a:isRequired){
-                if (explainStr.contains(a)){
-                    explainStr = explainStr.replace("（"+a+"）","").replace("["+a+"]","");
+            for (String a : isRequired) {
+                if (explainStr.contains(a)) {
+                    explainStr = explainStr.replace("（" + a + "）", "").replace("[" + a + "]", "");
                     isR = " | 否 ";
                 }
             }
@@ -164,39 +314,39 @@ public class json转MD表格_返参 {
             // 可以去掉一些空值,影响观感,有值的留着好了,做参考,  然后一些只有[  或者 {  这种就是数组或者一个对象
 
             // 要么把只要有注释的把非注释内容都去掉好了
-            if (explainStr.contains("/")){
-                explainStr = explainStr.substring(explainStr.indexOf("/")+2,explainStr.length());
+            if (explainStr.contains("/")) {
+                explainStr = explainStr.substring(explainStr.indexOf("/") + 2, explainStr.length());
             }
-            if (explainStr.replace(" ","").equals("{") ){
+            if (explainStr.replace(" ", "").equals("{")) {
                 explainStr = "是个对象";
-            }else if (explainStr.replace(" ","").equals("[")){
+            } else if (explainStr.replace(" ", "").equals("[")) {
                 explainStr = "是个数组";
             }
             res.append(" |" + explainStr + "   |\n");
         }
-        if (repeatingObject.size()>1){
+        if (repeatingObject.size() > 1) {
             System.out.println("######################有多个对象,请手动再继续处理对象里面的内容######################");
         }
-        System.out.println(res.toString());
+//        System.out.println(res.toString());
         return res.toString();
     }
 
     /**
-     * @Description 避免上面看起来太长,加个查找字段类型的方法
+     * @Description 避免上面看起来太长, 加个查找字段类型的方法
      */
-    static String searchFieldType(String explainStr){
+    static String searchFieldType(String explainStr) {
         // string[] 这种的判断放在  string前面,必经string[]里面也包含string这个字符串
         String res = " | String";
         if (explainStr.contains("string[]") || explainStr.contains("String[]")) {
-            res=" | String[] ";
+            res = " | String[] ";
         } else if (explainStr.contains("int[]") || explainStr.contains("Integer[]") || explainStr.contains("integer[]")) {
-            res=" | int[] ";
+            res = " | int[] ";
         } else if (explainStr.contains("boolean") || explainStr.contains("Boolean")) {
-            res=" | boolean ";
-        } else if (explainStr.contains("string") || explainStr.contains("String")){
-            res=" | String ";
-        }else if (explainStr.contains("int")){
-            res=" | int ";
+            res = " | boolean ";
+        } else if (explainStr.contains("string") || explainStr.contains("String")) {
+            res = " | String ";
+        } else if (explainStr.contains("int")) {
+            res = " | int ";
         }
         return res;
     }
@@ -205,8 +355,10 @@ public class json转MD表格_返参 {
      * @Description json转为markdown的表格
      * 暂时处理不了多个对象的情况,还有层级太多有多个对象也麻烦
      */
-    private static String toShowDocResMultiLevelv2(String origin, int pp) {// ,int pp
-        System.out.println("==========================尝试多级返参===========================");
+    private static String toShowDocResMultiLevelv2(String origin, int pp) {
+        int duplicateFlag = 0;
+        // ,int pp
+//        System.out.println("==========================尝试多级返参===========================");
         // 检测重复(用于对象数组的情况)
         Set<String> variableName = new HashSet<>();
         Set<String> repeatingObject = new HashSet<>();
@@ -283,10 +435,11 @@ public class json转MD表格_返参 {
          */
         int flag = 0;
         String flagStr = "";
-        forOne:for (int i = 0; i < sArr.length; i++) {
+        forOne:
+        for (int i = 0; i < sArr.length; i++) {
             // 不同层级的objectId给区分开来,同层级的不允许重复出现
 //            这个是用于判断是否该写入markdown表格的的key
-            String key = sArr[i]+""+spaceArr[i].length();
+            String key = sArr[i] + "" + spaceArr[i].length();
 //            请检查
 //            if (explainArr[i-1].replace(" ","").equals("{") || explainArr[i-1].replace(" ","").equals("[") ){
 //                flagStr = sArr[i-1];
@@ -300,7 +453,8 @@ public class json转MD表格_返参 {
 //                flagStr = "";
 //            }
 
-            if (spaceArr[i].length()>=8 && (explainArr[i - 1].replace(" ", "").equals("{") || explainArr[i - 1].replace(" ", "").equals("["))) {
+            // 前面一个的缩进比这个小,而且参数是 [  或者 { ,那就是对象或者对象数组
+            if (spaceArr[i].length() >= 8 && spaceArr[i-1].length()<spaceArr[i].length() &&  (explainArr[i - 1].replace(" ", "").equals("{") || explainArr[i - 1].replace(" ", "").equals("["))) {
                 flagStr = sArr[i - 1];
                 String repeatingKey = flagStr + key;
                 repeatingObject.add(repeatingKey);
@@ -313,10 +467,10 @@ public class json转MD表格_返参 {
 //                    continue forOne;
 //                }
             } else {
-                variableName.add(sArr[i]+""+spaceArr[i].length());
+                variableName.add(sArr[i] + "" + spaceArr[i].length());
             }
             res.append("|");
-            int spaceCount = (spaceArr[i].replace("\t","     ").length()) / 8;
+            int spaceCount = (spaceArr[i].replace("\t", "     ").length()) / 8;
             for (int j = 0; j < spaceCount; j++) {
                 res.append("+");
             }
@@ -330,18 +484,18 @@ public class json转MD表格_返参 {
             String fieldType = searchFieldType(explainArr[i]);
             res.append(fieldType);
             // 可以去掉一些空值,影响观感,有值的留着好了,做参考,  然后一些只有[  或者 {  这种就是数组或者一个对象
-            String explainStr = explainArr[i].replace("\"\", //","");
-            if (explainStr.replace(" ","").equals("{") ){
+            String explainStr = explainArr[i].replace("\"\", //", "");
+            if (explainStr.replace(" ", "").equals("{")) {
                 explainStr = "是个对象";
-            }else if (explainStr.replace(" ","").equals("[")){
+            } else if (explainStr.replace(" ", "").equals("[")) {
                 explainStr = "是个数组";
             }
             res.append(" |" + explainStr + "   |\n");
         }
-        if (repeatingObject.size()>1){
+        if (repeatingObject.size() > 1) {
             System.out.println("######################有多个对象,请手动再继续处理对象里面的内容######################");
         }
-        System.out.println(res.toString());
+//        System.out.println(res.toString());
         return res.toString();
     }
 

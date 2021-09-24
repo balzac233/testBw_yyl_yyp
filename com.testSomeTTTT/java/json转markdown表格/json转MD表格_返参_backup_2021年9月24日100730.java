@@ -12,11 +12,11 @@ import java.util.regex.Pattern;
  * @author: yyp
  * @create: 2021-09-24
  **/
-public class json转MD表格_返参 {
+public class json转MD表格_返参_backup_2021年9月24日100730 {
 
     //    private static Set<String> isRequired = new HashSet<>(Arrays.asList("非必传"));
-    private static List<String> notRequired = Arrays.asList("非必传","不必传输","不必传","可选","选填");
-    private static List<String> isRequired = Arrays.asList("必传","必填");
+    private static List<String> isRequired = Arrays.asList("非必传","不必传输","不必传","可选","选填");
+
     public static void main(String[] args) {
 
         // 系统关键字:   [   ]   {   }   "  :   ,   \n   #  ,     注释不要换行写.推荐写在参数后面,注释可以用// 或者 # ,后面可以写一些系统关键字,因为不会被记入括号匹配
@@ -140,12 +140,6 @@ public class json转MD表格_返参 {
             String explainStr = explainArr[i].replace("\"\", //","");
 //            String explainStr = explainArr[i];
             String isR = " | 是 ";
-            for (String a:notRequired){
-                if (explainStr.contains(a)){
-                    explainStr = explainStr.replace("（"+a+"）","").replace("["+a+"]","");
-                    isR = " | 否 ";
-                }
-            }
             for (String a:isRequired){
                 if (explainStr.contains(a)){
                     explainStr = explainStr.replace("（"+a+"）","").replace("["+a+"]","");
