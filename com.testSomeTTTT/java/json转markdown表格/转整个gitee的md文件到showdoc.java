@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 /**
  * @description
+ * 改动记录:
+ * 2021年9月24日14:02:40   yyp    改动地点为 editflag001   增加返回值可能取的标题
  * @author: yyp
  * @create: 2021-09-24
  **/
@@ -41,7 +43,7 @@ public class 转整个gitee的md文件到showdoc {
          */
 
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
-        String origin = "#### URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/repairSpace?token=\n" +
+        String origin = "#### URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/dataView?token=\n" +
                 "#### 请求方式: POST\n" +
                 "#### 负责人：蔡绍东\n" +
                 "#### 参数: \n" +
@@ -51,31 +53,47 @@ public class 转整个gitee的md文件到showdoc {
                 "    \"projectId\":\"项目id（string）（必须）\",\n" +
                 "    \"startTime\":\"开始时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选，不传默认查询当月）\",\n" +
                 "    \"endTime\":\"结束时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选）\",\n" +
-                "    \"serviceId\":\"服务类型id（string）（可选）\"\n" +
+                "    \"from\":\"报单来源（int数组，如：[1,2,3]）（可选）\",\n" +
+                "    \"userType\":\"报单对象（0：租户，1：非租户）（int）（可选）\",\n" +
+                "    \"spaceType\":\"报单位置（0：公区，1租区）（int）（可选）\",\n" +
+                "    \"serviceId\":\"服务类型id（string）（可选）\",\n" +
+                "    \"specialtyIds\":\"服务专业（string，多个用英文逗号隔开）（可选）\",\n" +
+                "    \"faultId\":\"问题类型（string）（可选）\",\n" +
+                "    \"equTypeId\":\"设备系统id（string）（可选）\",\n" +
+                "    \"equTypeLevel\":\"设备系统级别（int, 1：主系统  2：子系统  3：标准设备）（可选，equTypeId有值时必传）\",\n" +
+                "    \"dataType\":\"执行人类型 (0：个人，1：组织)（int）（可选）\",\n" +
+                "    \"repairUserId\":\"当dataType=0时，为报单人id，当dataType=1时，为orgId（string）（可选）\"\n" +
+                "    \n" +
                 "}\n" +
                 "```\n" +
                 "#### 返回值：\n" +
                 "```\n" +
                 "{\n" +
-                "    \"code\":200,\n" +
-                "    \"msg\":\"success\",\n" +
-                "    \"val\":{\n" +
-                "        \"totalCount\":\"工单总数量（int）\",\n" +
-                "        \"countStatisticList\":[\n" +
-                "            {\n" +
-                "                \"count\":\"当前分类工单总数量（int）\",\n" +
-                "                \"processCount\":\"未完工数量（int）\",\n" +
-                "                \"finishCount\":\"已完工数量（int）\",\n" +
-                "                \"proportion\":\"占比（string）\",\n" +
-                "                \"spaceType\":\"空间属性类型（int）\",\n" +
-                "                \"spaceTypeName\":\"空间属性名称（string）\"\n" +
-                "            }\n" +
-                "        ]\n" +
+                "    \"code\": 200,\n" +
+                "    \"msg\": \"success\",\n" +
+                "    \"val\": {\n" +
+                "        \"effectiveCount\": \"有效工单数（int）\",\n" +
+                "        \"finishCount\": \"已完工工单数（int）\",\n" +
+                "        \"processingCount\": \"未完工工单数（int）\",\n" +
+                "        \"totalCount\": \"工单总数（int）\",\n" +
+                "        \"urgencyCount\": \"有效工单中的紧急工单数（int）\",\n" +
+                "        \"avgReceiveOrderTime\": \"有效工单中的平均接单时间（单位：秒）（long）\",\n" +
+                "        \"avgArrivalTime\": \"有效工单中的平均到场时间（单位：秒）（long）\",\n" +
+                "        \"finishChargeCount\": \"已完工工单的收费工单数（int）\",\n" +
+                "        \"finishTotalRepairCost\": \"已完工工单的收费总金额（decimal）\",\n" +
+                "        \"finishTimeOutCount\": \"已完工工单的超时工单数（int）\",\n" +
+                "        \"processingUrgencyCount\": \"完工工单的紧急工单数（int）\",\n" +
+                "        \"processingHangupCount\": \"未完工工单的挂单工单数（int）\",\n" +
+                "        \"processingTimeOutCount\": \"未完工工单的超时工单数（int）\",\n" +
+                "        \"finishProportion\": \"已完工工单的占比（string）\",\n" +
+                "        \"processingProportion\": \"未完工工单的占比（string）\",\n" +
+                "        \"finishNoTimeOutProportion\": \"已完工工单的及时响应率（string）\",\n" +
+                "        \"processingNoTimeOutProportion\": \"未完工工单的及时响应率（string）\"\n" +
                 "    },\n" +
-                "    \"success\":1\n" +
+                "    \"success\": 1\n" +
                 "}\n" +
                 "```\n" +
-                "#### 导出URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/repairSpace/export?token=\n" +
+                "#### 导出URL:http://192.168.1.201:8050/lyws-repair/repairStatisticAnalyze/dataView/export?token=\n" +
                 "#### 请求方式: POST\n" +
                 "#### 负责人：蔡绍东\n" +
                 "#### 参数: 同上";
@@ -111,6 +129,10 @@ public class 转整个gitee的md文件到showdoc {
             Arrays.stream(returns).forEach(a -> partsList.add(a));
         } else if (origin.contains("返回值")) {
             String[] returns = origin.split("返回值");
+            Arrays.stream(returns).forEach(a -> partsList.add(a));
+            // editflag001
+        } else if (origin.contains("响应结果")) {
+            String[] returns = origin.split("响应结果");
             Arrays.stream(returns).forEach(a -> partsList.add(a));
         }
         if (null == partsList || partsList.size() <= 0) {
@@ -169,7 +191,8 @@ public class 转整个gitee的md文件到showdoc {
                 "##### 返回示例\n");
         res.append(param2);
         res.append("\n" +
-                "##### 返回参数说明\n\n");
+                "##### 返回参数说明\n\n| 参数名   | 类型   | <div style=\"min-width:400px;\" ></div>说明         |\n" +
+                "| :------ | :----- | --------------------------------------------------- |\n");
         res.append(mdTable2 + "\n");
         res.append("\n" +
                 "##### 备注\n" +
@@ -305,18 +328,28 @@ public class 转整个gitee的md文件到showdoc {
      */
     static String searchFieldType(String explainStr) {
         // string[] 这种的判断放在  string前面,必经string[]里面也包含string这个字符串
+        // 高频词汇放前面, 数组放前面(或者放在相关项目内)
         String res = " | String";
-        if (explainStr.contains("string[]") || explainStr.contains("String[]") || explainStr.contains("string数组")|| explainStr.contains("String数组")) {
-            res = " | String[] ";
-        } else if (explainStr.contains("int[]") || explainStr.contains("Integer[]") || explainStr.contains("integer[]")) {
-            res = " | int[] ";
+        if (explainStr.contains("string") || explainStr.contains("String")) {
+            if (explainStr.contains("string[]") || explainStr.contains("String[]") || explainStr.contains("string数组") || explainStr.contains("String数组")) {
+                res = " | String[] ";
+            } else {
+                res = " | String ";
+            }
+        } else if (explainStr.contains("int") || explainStr.contains("integer") || explainStr.contains("Integer")) {
+            if (explainStr.contains("int[]") || explainStr.contains("Integer[]") || explainStr.contains("integer[]")) {
+                res = " | int[] ";
+            } else {
+                res = " | int ";
+            }// 下面那仨其实都不常见,如果还有类型再添
         } else if (explainStr.contains("boolean") || explainStr.contains("Boolean")) {
             res = " | boolean ";
-        } else if (explainStr.contains("string") || explainStr.contains("String")) {
-            res = " | String ";
-        } else if (explainStr.contains("int")) {
-            res = " | int ";
+        } else if (explainStr.contains("long") || explainStr.contains("Long")) {
+            res = " | long ";
+        } else if (explainStr.contains("decimal") || explainStr.contains("Decimal")) {
+            res = " | decimal ";
         }
+
         return res;
     }
 
@@ -423,11 +456,11 @@ public class 转整个gitee的md文件到showdoc {
 //            }
 
             // 前面一个的缩进比这个小,而且参数是 [  或者 { ,那就是对象或者对象数组
-            if (spaceArr[i].length() >= 8 && spaceArr[i-1].length()<spaceArr[i].length() &&  (explainArr[i - 1].replace(" ", "").equals("{") || explainArr[i - 1].replace(" ", "").equals("["))) {
+            if (spaceArr[i].length() >= 8 && spaceArr[i - 1].length() < spaceArr[i].length() && (explainArr[i - 1].replace(" ", "").equals("{") || explainArr[i - 1].replace(" ", "").equals("["))) {
                 flagStr = sArr[i - 1];
                 String repeatingKey = flagStr + key;
-                if (repeatingObject.contains(repeatingKey)){
-                    duplicateFlag =1;
+                if (repeatingObject.contains(repeatingKey)) {
+                    duplicateFlag = 1;
                 }
                 repeatingObject.add(repeatingKey);
             }
@@ -467,7 +500,7 @@ public class 转整个gitee的md文件到showdoc {
 //        if (repeatingObject.size() > 1) {
 //            System.out.println("######################有多个对象,请手动再继续处理对象里面的内容######################");
 //        }
-        if (duplicateFlag ==1){
+        if (duplicateFlag == 1) {
             System.out.println("######################有多个对象,请手动再继续处理对象里面的内容######################");
         }
 //        System.out.println(res.toString());
