@@ -49,106 +49,47 @@ public class 转整个gitee的md文件到showdoc {
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
 
 
-        String origin = "#### URL:http://192.168.1.201:8926/inventoryStatistic/outboundPageList\n" +
+        String origin = "#### URL: http://192.168.1.201:8050/cloudlink-building-guard/banner/delete?token=e56ce7b3-ab5d-4d83-8e0e-a2f3281614df\n" +
                 "#### 请求方式: POST\n" +
-                "#### 负责人：蔡绍东\n" +
+                "#### 负责人：廖扬帆\n" +
                 "#### 参数: \n" +
                 "```\n" +
-                "{\n" +
-                "     \"pageNum\":\"页数（int）（必须）\",\n" +
-                "     \"pageSize\":\"每页数量（int）（必须）\",\n" +
-                "     \"projectId\":\"项目id（string）（必须）\",\n" +
-                "     \"outboundStartTime\":\"出库查询开始时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选，不传默认查询当月）\",\n" +
-                "     \"outboundEndTime\":\"出库查询结束时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选）\",\n" +
-                "     \"storeroom\":\"库房id（string）（可选）\",\n" +
-                "     \"checkResult\":\"核查结果（no：不需要核查，check：待核查，notCorrect：待更正，checked：已核查）（可选）\",\n" +
-                "     \"materielCategoryId\":\"物料分类id（string）（可选）\",\n" +
-                "     \"materielInfo\":\"物料名称/编号/条形码（string）（可选）\",\n" +
-                "     \"picker\":\"领料人id（string）（可选）\",\n" +
-                "     \"outboundOrderCode\":\"出库单号（string）（可选）\",\n" +
-                "     \"pickApplyOrderCode\":\"领料单号（string）（可选）\",\n" +
-                "     \"orderNumber\":\"关联工单（string）（可选）\",\n" +
-                "     \"remark\":\"备注（string）（可选）\"\n" +
-                "}\n" +
+                "{           \n" +
+                "\t\"objectId\": \"a233f311-ac5e-488e-a243-9a9b3dfe2e99\",   //轮播id String[必传]\n" +
+                "\t\"active\" : 0                                    //删除标识 int[必传]\t\n" +
+                "\n" +
+                "} \n" +
+                "\n" +
                 "```\n" +
                 "#### 返回值：\n" +
                 "```\n" +
                 "{\n" +
                 "    \"code\": 200,\n" +
                 "    \"msg\": \"success\",\n" +
-                "    \"val\": {\n" +
-                "        \"pageNum\": 1,\n" +
-                "        \"pageSize\": 5,\n" +
-                "        \"orderBy\": \"\",\n" +
-                "        \"countTotal\": true,\n" +
-                "        \"result\": [\n" +
-                "            {\n" +
-                "                \"storeroomName\": \"库房名称（string）\",\n" +
-                "                \"outboundOrderCode\": \"出库单号（string）\",\n" +
-                "                \"outBoundStatusName\": \"出库状态（string）\",\n" +
-                "                \"confirmResultName\": \"确认状态（string）\",\n" +
-                "                \"checkResultName\": \"核查结果（string）\",\n" +
-                "                \"materielName\": \"物料名称（string）\",\n" +
-                "                \"materielCode\": \"物料编号（string）\",\n" +
-                "                \"barCode\": \"条形码（string）\",\n" +
-                "                \"specModel\": \"规格型号（string）\",\n" +
-                "                \"brand\": \"品牌（string）\",\n" +
-                "                \"unitName\": \"单位（string）\",\n" +
-                "                \"orderAmount\": \"出库数量（int）\",\n" +
-                "                \"unitPrice\": \"成本单价（decimal）\",\n" +
-                "                \"orderPrice\": \"金额（decimal）\",\n" +
-                "                \"shelfLife\": \"保质期（int）\",\n" +
-                "                \"productDate\": \"生产日期（long）\",\n" +
-                "                \"expiredDate\": \"失效日期（long）\",\n" +
-                "                \"materielCategoryFullName\": \"物料分类（string）\",\n" +
-                "                \"mainBusinessCostNumber\": \"主营业务成本编号（string）\",\n" +
-                "                \"mainBusinessCostName\": \"主营业务成本名称（string）\",\n" +
-                "                \"budgetNumber\": \"预算编号（string）\",\n" +
-                "                \"budgetName\": \"预算名称（string）\",\n" +
-                "                \"accountTitleNumber\": \"库存商品会计科目编号（string）\",\n" +
-                "                \"accountTitleName\": \"库存商品会计科目名称（string）\",\n" +
-                "                \"inboundOrderCode\": \"出库物料入库单号（string）\",\n" +
-                "                \"inboundTime\": \"出库物料入库时间（long）\",\n" +
-                "                \"pickApplyOrderCode\": \"领料单号（string）\",\n" +
-                "                \"orderNumber\": \"关联工单（string）\",\n" +
-                "                \"pickerName\": \"领料人（string）\",\n" +
-                "                \"pickerOrgName\": \"领料人部门（string）\",\n" +
-                "                \"checkerName\": \"审核人（string）\",\n" +
-                "                \"checkRemark\": \"审核意见（string）\",\n" +
-                "                \"checkTime\": \"审核时间（long）\",\n" +
-                "                \"outboundUserName\": \"出库人（string）\",\n" +
-                "                \"outboundTime\": \"出库时间（long）\",\n" +
-                "                \"confirmUserName\": \"确认人（string）\",\n" +
-                "                \"confirmTime\": \"确认时间（long）\",\n" +
-                "                \"checkUserName\": \"核查人（string）\",\n" +
-                "                \"checkUserTime\": \"核查时间（long）\",\n" +
-                "                \"createTime\": \"创建时间（long）\",\n" +
-                "                \"remark\": \"备注（string）\"\n" +
-                "            }\n" +
-                "        ],\n" +
-                "        \"result2\": {\n" +
-                "            \"ss\":\"uuku\",\n" +
-                "            \"ss2\":\"efy7uyuyef\",\n" +
-                "            \"ss3\":\"yuyuy\",\n" +
-                "            \"ss4\":{\n" +
-                "                \"ll2\":\"efyuyuyuyuye\",\n" +
-                "                \"ll3\":\"efyuyue\"\n" +
-                "            }\n" +
-                "        }\n" +
-                "        \"totalLength\": 4,\n" +
-                "        \"offset\": 0,\n" +
-                "        \"orderBySetted\": false\n" +
-                "    },\n" +
+                "    \"val\": \"50c69de3-9fd6-4052-8e3c-81da38dabe45\",\n" +
                 "    \"success\": 1\n" +
                 "}\n" +
-                "```\n" +
-                "#### URL:http://192.168.1.201:8926/inventoryStatistic/outboundPageList/export\n" +
-                "#### 请求方式: POST\n" +
-                "#### 负责人：蔡绍东\n" +
-                "#### 参数: 同上";
+                "```";
 
 
         origin = origin + "\n";
+
+        if (origin.contains(". 请求地址")){
+            // (^\d*)(\.\s*)([\u4e00-\u9fa5]*)        to            - $3
+            // 标题要大于两个字   ,   很见鬼,有些符号也算是中文
+            String pattern = "(\\d*)(\\.\\s*)([\\u4e00-\\u9fa5]{2,})";
+            Pattern p = Pattern.compile(pattern);
+            Matcher m = p.matcher(origin);
+            StringBuffer sb = new StringBuffer();
+            while (m.find()){
+                String tmp  = m.group(0);
+                String key = m.group(3);
+                m.appendReplacement(sb, "- "+key);
+            }
+            m.appendTail(sb);
+//            System.out.println(sb.toString());
+            origin = sb.toString();
+        }
 
 //        // 最后一行经常因为没有\n检测不到,加上
 //        origin = origin + "\n";
@@ -208,18 +149,23 @@ public class 转整个gitee的md文件到showdoc {
                 "\n" +
                 "-   TTTTT自己替换下标题TTTTT\n\n");
 
+//        String 返回值的那段文本
+        String resStart = "";
         // 传参和返参所在的部分可以用"返回示例"或者"返回值"字样来区分开
         int splitIndex = 0;
         List<String> partsList = new ArrayList<>();
         // 返回示例后面跟着的一般就是返回值json了,不能用返回参数说明什么的来分割,因为返回参数说明一般都是在返回示例下面的
         if (origin.contains("返回示例")) {
+            resStart = "返回示例";
             String[] returns = origin.split("返回示例");
             Arrays.stream(returns).forEach(a -> partsList.add(a));
         } else if (origin.contains("返回值")) {
+            resStart = "返回值";
             String[] returns = origin.split("返回值");
             Arrays.stream(returns).forEach(a -> partsList.add(a));
             // editflag001
         } else if (origin.contains("响应结果")) {
+            resStart = "响应结果";
             String[] returns = origin.split("响应结果");
             Arrays.stream(returns).forEach(a -> partsList.add(a));
         }
@@ -228,7 +174,8 @@ public class 转整个gitee的md文件到showdoc {
         }
         String part01 = partsList.get(0);
         String part02 = partsList.get(1);
-        String param1 = part01.substring(part01.indexOf("```json"), part01.lastIndexOf("- 请求方式"));
+//        if (origin)
+        String param1 = part01.substring(part01.indexOf("```json"), part01.lastIndexOf("```"));
 //        System.out.println(param1+"\n\n=======================================\n\n");
         String param2 = part02.substring(part02.indexOf("```"), part02.lastIndexOf("`") + 1);
 //        System.out.println(param2);
@@ -392,7 +339,7 @@ public class 转整个gitee的md文件到showdoc {
      * @Description (传参和返参也就差个是否必填, isRes等于ture就是返参, false就是传参)json转为markdown的表格
      * 暂时处理不了多个对象的情况,还有层级太多有多个对象也麻烦
      */
-    private static String toShowDocMultiLevel(String origin, int pp, boolean isRes) {
+    private static String toShowDocMultiLevel(String origin, int pp, boolean isRes) throws Exception {
 
         // ,int pp
 //        System.out.println("==========================尝试多级传参===========================");
@@ -429,8 +376,11 @@ public class 转整个gitee的md文件到showdoc {
         String[] spaceArr = sb2.toString().split(",");
         String[] explainArr = explain.toString().split("&");
 //        boolean isChild = false;
-        // 标记上次的缩进个数
-        int spaceNum = 4;
+        // 标记上次的缩进个数  刚开始初始化应该用
+        int spaceNum = 0;
+        if (sArr.length>0){
+            spaceNum = spaceArr[0].length();
+        }
         // 一般来说缩进就是4个空格
         int tabSize = 4;
         int plusNum = 0;
@@ -483,7 +433,12 @@ public class 转整个gitee的md文件到showdoc {
                     // 有来有回,回来了说明已经又到同级了.  有时候回来是一次性回两层的,所以这里好像有些不对.
 //                    回来的层数不一定能完全确定,所以有些不好判断()
 //                    暂时有个方法,把这回的参数之间的字符串截取出来,看有几个 }   这个
-                    String bt = " 为了避免符号前后没东西  " +origin.substring(origin.indexOf(sHeadArr[i-1]),origin.indexOf(sHeadArr[i]))+" 为了避免符号前后没东西  ";
+                    // 如果两个对象内有两个相同参数,那么indexOf就会取到比较先的那个,这个好像不大准,取最后一个什么的也有隐患.
+                    // 主要是相同变量名相同缩进的变量这个有些多
+                    String bt = " 为了避免符号前后没东西  " +origin.substring(origin.lastIndexOf(sHeadArr[i-1]),origin.lastIndexOf(sHeadArr[i]))+" 为了避免符号前后没东西  ";
+                    if (bt.split("\n").length>4){
+                        throw new Exception("是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个");
+                    }
                     String[] btArr = bt.split("}");
 //                    if (bt)
                     int backspaceNum = btArr.length-1;
@@ -493,9 +448,11 @@ public class 转整个gitee的md文件到showdoc {
 
                     spaceNum = spaceLen;
                 }
-                flagStr = sArr[i - 1];
-                String repeatingKey = flagStr + key;
-                repeatingObject.add(repeatingKey);
+                if (isChildStack.size()>0 && i>0){
+                    flagStr = sArr[i - 1];
+                    String repeatingKey = flagStr + key;
+                    repeatingObject.add(repeatingKey);
+                }
             }
             plusNum = isChildStack.size();
             if (variableName.contains(key)) {
