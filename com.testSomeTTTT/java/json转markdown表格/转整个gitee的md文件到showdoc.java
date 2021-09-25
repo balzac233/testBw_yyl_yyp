@@ -5,12 +5,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @description
- * 改动记录:
+ * @description 改动记录:
  * 2021年9月24日14:02:40   yyp    改动地点为 editflag001   增加返回值可能取的标题
  * 2021年9月24日14:17:52  yyp    改动地点为  editflag002   必填信息提取出来后表格里面删除是否必填的说明,然后删除中英文括号
  * 2021年9月24日14:56:04  yyp    准备改动但是没改,一般不同对象名属性名都相同其实就是一张表里面不同type的数据罢了,没必要重复放进去
- *
+ * editflag2109241640 yyp  更改了匹配传参返参的规则
  * @author: yyp
  * @create: 2021-09-24
  **/
@@ -18,9 +17,11 @@ public class 转整个gitee的md文件到showdoc {
 
     //    private static Set<String> isRequired = new HashSet<>(Arrays.asList("非必传"));
     private static List<String> notRequired = Arrays.asList("非必传", "不必传输", "不必传", "可选", "选填");
-    private static List<String> isRequired = Arrays.asList("必传", "必填","必须");
+    private static List<String> isRequired = Arrays.asList("必传", "必填", "必须");
 
     public static void main(String[] args) throws Exception {
+
+        long nowmilli = System.currentTimeMillis();
 
         // 系统关键字:   [   ]   {   }   "  :   ,   \n   #  ,     注释不要换行写.推荐写在参数后面,注释可以用// 或者 # ,后面可以写一些系统关键字,因为不会被记入括号匹配
         // 参数名称一定要加引号,然后写上冒号(均为英文),后面再写参数值和注释,参数名符合命名规范,是字符数字下划线
@@ -46,54 +47,179 @@ public class 转整个gitee的md文件到showdoc {
          */
 
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
-        String origin = "- 请求地址:\n" +
-                "\n" +
-                "```text\n" +
-                "/lyws-inspect/inspectionStatistics/trend\n" +
+
+
+        String origin = "#### URL:http://192.168.1.201:8050/cloudlink-building-guard/eff/specialty/responseNum\n" +
+                "#### 请求方式: POST\n" +
+                "#### 负责人：葛志华\n" +
+                "#### 参数: \n" +
                 "```\n" +
-                "\n" +
-                "- 请求参数:\n" +
-                "\n" +
-                "```json\n" +
                 "{\n" +
-                "    \"projectId\":\"\", // 项目id\n" +
-                "    \"startYear\":\"\", // 计划开始时间年份\n" +
-                "    \"specialtyIdList\":[ // 专业id集合\n" +
-                "        \"\",\n" +
-                "        \"\"\n" +
-                "    ],\n" +
-                "    \"finishStatus\":[ // 工单状态(unBegin:待接单; processing:进行中; finish:已完成; termination:已终止; overdue:已逾期)\n" +
-                "        \"\",\n" +
-                "        \"\"\n" +
-                "    ],\n" +
-                "    \"finishResult\":\"\", // 巡检结果(abNormal:有异常; normal:正常; empty:无; 什么也不传就是所有)\n" +
-                "    \"executorType\":\"\",  // 执行人类型(maintainer:维保商; tenant:租户; orgUser:本项目组织机构)\n" +
-                "    \"executor\":\"\"  // 执行人\n" +
+                "    \"year\": 2020,\n" +
+                "    \"specialtyIds\": [\"d47426ae-31a7-4eb4-9ab7-27031d9ce445\"],\n" +
+                "    \"projectId\": \"f678fb40-1206-4127-9f1a-4353a70d8e81\"\n" +
                 "}\n" +
                 "```\n" +
-                "\n" +
-                "- 请求方式:\n" +
-                "\n" +
-                "```text\n" +
-                "post\n" +
+                "#### 返回值：\n" +
                 "```\n" +
-                "\n" +
-                "- 响应结果:\n" +
-                "\n" +
-                "```json\n" +
                 "{\n" +
                 "    \"code\": 200,\n" +
                 "    \"msg\": \"success\",\n" +
-                "    \"val\": [ // 各个月份工单数量集合\n" +
-                "        {\n" +
-                "            \"month\":\"\", // 月份(1:一月; 2:二月; ……)\n" +
-                "            \"lastYearCount\":\"\", // 选择的年份的上一年工单数量\n" +
-                "            \"thisYearCount\":\"\" // 选择的年份的工单数量\n" +
-                "        }\n" +
-                "    ],\n" +
+                "    \"val\": {\n" +
+                "        \"specialtyIds\": [\"d47426ae-31a7-4eb4-9ab7-27031d9ce445\"],\n" +
+                "        \"projectId\": \"f678fb40-1206-4127-9f1a-4353a70d8e81\",\n" +
+                "        \"monthItemVOS\": [\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 1,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 2,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 3,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 4,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 5,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 6,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 1,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 70,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 6,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 7,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 8,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 9,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 1,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 4272,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 10,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 11,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
+                "                \"monthIndex\": 12,\n" +
+                "                \"lastYear\": 2019,\n" +
+                "                \"thisYear\": 2020,\n" +
+                "                \"thisYearMonthNum\": 0,\n" +
+                "                \"lastYearMonthNum\": 0,\n" +
+                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
+                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
+                "                \"thisYearArriveMonthMinutes\": 0,\n" +
+                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
                 "    \"success\": 1\n" +
                 "}\n" +
                 "```";
+
+
         origin = origin + "\n";
 
 //        // 最后一行经常因为没有\n检测不到,加上
@@ -107,9 +233,12 @@ public class 转整个gitee的md文件到showdoc {
 //        System.out.println("=============================================");
 //        System.out.println(toShowDocMultiLevel(origin,0,true));
 
-        if (origin.contains("# 请求方式")){
+//        不知道为啥有些```前面有个空格,就很难受,把空格去掉,一般空格也只有一个,不用正则好像也没问题
+        origin = origin.replace(" ```","```");
+
+        if (origin.contains("# 请求方式")) {
             System.out.println(toWholeShowDoc(origin));
-            if (!origin.contains("# 返回值") && !origin.contains("# 返回示例") && !origin.contains("# 响应结果")  ){
+            if (!origin.contains("# 返回值") && !origin.contains("# 返回示例") && !origin.contains("# 响应结果")) {
                 origin = origin + " \n\n#### 返回值：\n" +
                         "```\n" +
                         "{\n" +
@@ -117,18 +246,20 @@ public class 转整个gitee的md文件到showdoc {
                         "}\n" +
                         "``` ";
             }
-        }else if (origin.contains("- 请求方式")){
-            if (!origin.contains("- 响应结果")){
+        } else if (origin.contains("- 请求方式")) {
+            if (!origin.contains("- 响应结果")) {
                 origin = origin + "\n\n- 响应结果\n" +
                         "```\n" +
                         "    暂无\n" +
                         "```";
             }
             System.out.println(toWholeShowDoc2(origin));
-        }else{
+        } else {
             throw new Exception("检查下这个接口文档的请求方式在哪");
         }
 
+//
+//        System.out.println(System.currentTimeMillis()-nowmilli);
 
 //        partsList.stream().forEach(a-> System.out.println(a+"\n\n===============================================\n\n"));
 //        System.out.println("==================================");
@@ -138,7 +269,7 @@ public class 转整个gitee的md文件到showdoc {
     /**
      * 有种是这类格式
      * - 请求地址:
-     *
+     * <p>
      * ```text
      * /lyws-inspect/checkStatistics/unqualified/export
      * ```
@@ -169,14 +300,14 @@ public class 转整个gitee的md文件到showdoc {
         }
         String part01 = partsList.get(0);
         String part02 = partsList.get(1);
-        String param1 = part01.substring(part01.indexOf("```json"), part01.lastIndexOf("- 请求方式") );
+        String param1 = part01.substring(part01.indexOf("```json"), part01.lastIndexOf("- 请求方式"));
 //        System.out.println(param1+"\n\n=======================================\n\n");
         String param2 = part02.substring(part02.indexOf("```"), part02.lastIndexOf("`") + 1);
 //        System.out.println(param2);
 
 
-        String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0,false);
-        String mdTable2 = toShowDocMultiLevel(partsList.get(1), 0,true);
+        String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0, false);
+        String mdTable2 = toShowDocMultiLevel(partsList.get(1), 0, true);
 //        String mdTable2 = toShowDocResMultiLevelv2(partsList.get(1), 0);
         // 标题的正则   (.*里头是标题)
         String titleExp = "#*\\s*(标题|title)(\\s*:\\s*)(.*)(\\n)";
@@ -258,14 +389,20 @@ public class 转整个gitee的md文件到showdoc {
         }
         String part01 = partsList.get(0);
         String part02 = partsList.get(1);
-        String param1 = part01.substring(part01.indexOf("`"), part01.lastIndexOf("`") + 1);
+        if (!part01.contains("```")) {
+            part01 = part01 + "```\n" +
+                    "    暂无参数\n" +
+                    "```\n";
+        }
+        // editflag2109241640
+        String param1 = part01.substring(part01.indexOf("```"), part01.lastIndexOf("```") + 3);
 //        System.out.println(param1+"\n\n=======================================\n\n");
-        String param2 = part02.substring(part02.indexOf("`"), part02.lastIndexOf("`") + 1);
+        String param2 = part02.substring(part02.indexOf("```"), part02.lastIndexOf("```") + 3);
 //        System.out.println(param2);
 
 
-        String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0,false);
-        String mdTable2 = toShowDocMultiLevel(partsList.get(1), 0,true);
+        String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0, false);
+        String mdTable2 = toShowDocMultiLevel(partsList.get(1), 0, true);
 //        String mdTable2 = toShowDocResMultiLevelv2(partsList.get(1), 0);
         // 标题的正则   (.*里头是标题)
         String titleExp = "#*\\s*(标题|title)(\\s*:\\s*)(.*)(\\n)";
@@ -322,10 +459,10 @@ public class 转整个gitee的md文件到showdoc {
     }
 
     /**
-     * @Description (传参和返参也就差个是否必填,isRes等于ture就是返参,false就是传参)json转为markdown的表格
+     * @Description (传参和返参也就差个是否必填, isRes等于ture就是返参, false就是传参)json转为markdown的表格
      * 暂时处理不了多个对象的情况,还有层级太多有多个对象也麻烦
      */
-    private static String toShowDocMultiLevel(String origin, int pp,boolean isRes) {
+    private static String toShowDocMultiLevel(String origin, int pp, boolean isRes) {
 
         // ,int pp
 //        System.out.println("==========================尝试多级传参===========================");
@@ -361,7 +498,7 @@ public class 转整个gitee的md文件到showdoc {
             String key = sArr[i] + "" + spaceArr[i].length();
 
             // 如果这个参数是前面有个对象或者对象数组,也就是这个参数对象或者对象数组的孩子,那么
-            if (isChild){
+            if (isChild) {
 
             }
 
@@ -425,7 +562,7 @@ public class 转整个gitee的md文件到showdoc {
                     break;
                 }
             }
-            if (!isRes){
+            if (!isRes) {
                 res.append(isR);
             }
 //            if (explainArr[i].contains("(必传)") || explainArr[i].contains("[必传]") || !explainArr[i].contains("不必传") || !explainArr[i].contains("非必传") ) {
@@ -439,6 +576,8 @@ public class 转整个gitee的md文件到showdoc {
             // 可以去掉一些空值,影响观感,有值的留着好了,做参考,  然后一些只有[  或者 {  这种就是数组或者一个对象
 
             // 要么把只要有注释的把非注释内容都去掉好了
+            // 这里有个风险(极少数情况出现的),有时候注释用的是# , 有时候用的是 //  然后有时候// 里面有 # , # 里面有斜杠.
+            // 暂时只能给//和#分个前后顺序,然后取前面的那个
             if (explainStr.contains("/")) {
                 explainStr = explainStr.substring(explainStr.indexOf("/") + 2, explainStr.length());
             }
