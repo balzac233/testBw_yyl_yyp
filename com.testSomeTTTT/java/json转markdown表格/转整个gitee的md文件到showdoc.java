@@ -49,15 +49,26 @@ public class 转整个gitee的md文件到showdoc {
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
 
 
-        String origin = "#### URL:http://192.168.1.201:8050/cloudlink-building-guard/eff/specialty/responseNum\n" +
+        String origin = "#### URL:http://192.168.1.201:8926/inventoryStatistic/outboundPageList\n" +
                 "#### 请求方式: POST\n" +
-                "#### 负责人：葛志华\n" +
+                "#### 负责人：蔡绍东\n" +
                 "#### 参数: \n" +
                 "```\n" +
                 "{\n" +
-                "    \"year\": 2020,\n" +
-                "    \"specialtyIds\": [\"d47426ae-31a7-4eb4-9ab7-27031d9ce445\"],\n" +
-                "    \"projectId\": \"f678fb40-1206-4127-9f1a-4353a70d8e81\"\n" +
+                "     \"pageNum\":\"页数（int）（必须）\",\n" +
+                "     \"pageSize\":\"每页数量（int）（必须）\",\n" +
+                "     \"projectId\":\"项目id（string）（必须）\",\n" +
+                "     \"outboundStartTime\":\"出库查询开始时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选，不传默认查询当月）\",\n" +
+                "     \"outboundEndTime\":\"出库查询结束时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选）\",\n" +
+                "     \"storeroom\":\"库房id（string）（可选）\",\n" +
+                "     \"checkResult\":\"核查结果（no：不需要核查，check：待核查，notCorrect：待更正，checked：已核查）（可选）\",\n" +
+                "     \"materielCategoryId\":\"物料分类id（string）（可选）\",\n" +
+                "     \"materielInfo\":\"物料名称/编号/条形码（string）（可选）\",\n" +
+                "     \"picker\":\"领料人id（string）（可选）\",\n" +
+                "     \"outboundOrderCode\":\"出库单号（string）（可选）\",\n" +
+                "     \"pickApplyOrderCode\":\"领料单号（string）（可选）\",\n" +
+                "     \"orderNumber\":\"关联工单（string）（可选）\",\n" +
+                "     \"remark\":\"备注（string）（可选）\"\n" +
                 "}\n" +
                 "```\n" +
                 "#### 返回值：\n" +
@@ -66,158 +77,75 @@ public class 转整个gitee的md文件到showdoc {
                 "    \"code\": 200,\n" +
                 "    \"msg\": \"success\",\n" +
                 "    \"val\": {\n" +
-                "        \"specialtyIds\": [\"d47426ae-31a7-4eb4-9ab7-27031d9ce445\"],\n" +
-                "        \"projectId\": \"f678fb40-1206-4127-9f1a-4353a70d8e81\",\n" +
-                "        \"monthItemVOS\": [\n" +
+                "        \"pageNum\": 1,\n" +
+                "        \"pageSize\": 5,\n" +
+                "        \"orderBy\": \"\",\n" +
+                "        \"countTotal\": true,\n" +
+                "        \"result\": [\n" +
                 "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 1,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 2,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 3,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 4,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 5,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 6,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 1,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 70,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 6,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 7,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 8,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 9,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 1,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 4272,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 10,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 11,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"specialtyId\": \"d47426ae-31a7-4eb4-9ab7-27031d9ce445\",\n" +
-                "                \"monthIndex\": 12,\n" +
-                "                \"lastYear\": 2019,\n" +
-                "                \"thisYear\": 2020,\n" +
-                "                \"thisYearMonthNum\": 0,\n" +
-                "                \"lastYearMonthNum\": 0,\n" +
-                "                \"thisYearAcceptMonthMinutes\": 0,\n" +
-                "                \"lastYearAcceptMonthMinutes\": 0,\n" +
-                "                \"thisYearArriveMonthMinutes\": 0,\n" +
-                "                \"lastYearArriveMonthMinutes\": 0\n" +
+                "                \"storeroomName\": \"库房名称（string）\",\n" +
+                "                \"outboundOrderCode\": \"出库单号（string）\",\n" +
+                "                \"outBoundStatusName\": \"出库状态（string）\",\n" +
+                "                \"confirmResultName\": \"确认状态（string）\",\n" +
+                "                \"checkResultName\": \"核查结果（string）\",\n" +
+                "                \"materielName\": \"物料名称（string）\",\n" +
+                "                \"materielCode\": \"物料编号（string）\",\n" +
+                "                \"barCode\": \"条形码（string）\",\n" +
+                "                \"specModel\": \"规格型号（string）\",\n" +
+                "                \"brand\": \"品牌（string）\",\n" +
+                "                \"unitName\": \"单位（string）\",\n" +
+                "                \"orderAmount\": \"出库数量（int）\",\n" +
+                "                \"unitPrice\": \"成本单价（decimal）\",\n" +
+                "                \"orderPrice\": \"金额（decimal）\",\n" +
+                "                \"shelfLife\": \"保质期（int）\",\n" +
+                "                \"productDate\": \"生产日期（long）\",\n" +
+                "                \"expiredDate\": \"失效日期（long）\",\n" +
+                "                \"materielCategoryFullName\": \"物料分类（string）\",\n" +
+                "                \"mainBusinessCostNumber\": \"主营业务成本编号（string）\",\n" +
+                "                \"mainBusinessCostName\": \"主营业务成本名称（string）\",\n" +
+                "                \"budgetNumber\": \"预算编号（string）\",\n" +
+                "                \"budgetName\": \"预算名称（string）\",\n" +
+                "                \"accountTitleNumber\": \"库存商品会计科目编号（string）\",\n" +
+                "                \"accountTitleName\": \"库存商品会计科目名称（string）\",\n" +
+                "                \"inboundOrderCode\": \"出库物料入库单号（string）\",\n" +
+                "                \"inboundTime\": \"出库物料入库时间（long）\",\n" +
+                "                \"pickApplyOrderCode\": \"领料单号（string）\",\n" +
+                "                \"orderNumber\": \"关联工单（string）\",\n" +
+                "                \"pickerName\": \"领料人（string）\",\n" +
+                "                \"pickerOrgName\": \"领料人部门（string）\",\n" +
+                "                \"checkerName\": \"审核人（string）\",\n" +
+                "                \"checkRemark\": \"审核意见（string）\",\n" +
+                "                \"checkTime\": \"审核时间（long）\",\n" +
+                "                \"outboundUserName\": \"出库人（string）\",\n" +
+                "                \"outboundTime\": \"出库时间（long）\",\n" +
+                "                \"confirmUserName\": \"确认人（string）\",\n" +
+                "                \"confirmTime\": \"确认时间（long）\",\n" +
+                "                \"checkUserName\": \"核查人（string）\",\n" +
+                "                \"checkUserTime\": \"核查时间（long）\",\n" +
+                "                \"createTime\": \"创建时间（long）\",\n" +
+                "                \"remark\": \"备注（string）\"\n" +
                 "            }\n" +
-                "        ]\n" +
+                "        ],\n" +
+                "        \"result2\": {\n" +
+                "            \"ss\":\"uuku\",\n" +
+                "            \"ss2\":\"efy7uyuyef\",\n" +
+                "            \"ss3\":\"yuyuy\",\n" +
+                "            \"ss4\":{\n" +
+                "                \"ll2\":\"efyuyuyuyuye\",\n" +
+                "                \"ll3\":\"efyuyue\"\n" +
+                "            }\n" +
+                "        }\n" +
+                "        \"totalLength\": 4,\n" +
+                "        \"offset\": 0,\n" +
+                "        \"orderBySetted\": false\n" +
                 "    },\n" +
                 "    \"success\": 1\n" +
                 "}\n" +
-                "```";
+                "```\n" +
+                "#### URL:http://192.168.1.201:8926/inventoryStatistic/outboundPageList/export\n" +
+                "#### 请求方式: POST\n" +
+                "#### 负责人：蔡绍东\n" +
+                "#### 参数: 同上";
 
 
         origin = origin + "\n";
@@ -234,7 +162,7 @@ public class 转整个gitee的md文件到showdoc {
 //        System.out.println(toShowDocMultiLevel(origin,0,true));
 
 //        不知道为啥有些```前面有个空格,就很难受,把空格去掉,一般空格也只有一个,不用正则好像也没问题
-        origin = origin.replace(" ```","```");
+        origin = origin.replace(" ```", "```");
 
         if (origin.contains("# 请求方式")) {
             System.out.println(toWholeShowDoc(origin));
@@ -309,6 +237,8 @@ public class 转整个gitee的md文件到showdoc {
         String mdTable1 = toShowDocMultiLevel(partsList.get(0), 0, false);
         String mdTable2 = toShowDocMultiLevel(partsList.get(1), 0, true);
 //        String mdTable2 = toShowDocResMultiLevelv2(partsList.get(1), 0);
+        // 如果以后文件很大速度慢了,可以试着哪里可能有正则里面的内容就把那段用关键字剪切出来
+        // 裁出一段子字符串应该是比正则的匹配要快的
         // 标题的正则   (.*里头是标题)
         String titleExp = "#*\\s*(标题|title)(\\s*:\\s*)(.*)(\\n)";
         // 请求url的正则 #*\s*(url|URL|Url)(\s*:\s*)(.*)(\n)
@@ -470,25 +400,43 @@ public class 转整个gitee的md文件到showdoc {
         Set<String> variableName = new HashSet<>();
         Set<String> repeatingObject = new HashSet<>();
         String[] originArr = origin.split("\n");
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         // 变量前面的退格数量
-        StringBuffer sb2 = new StringBuffer();
+        StringBuilder sb2 = new StringBuilder();
         StringBuilder explain = new StringBuilder();
+
+        // 前面的空格到参数名位置,有个地方要用到.
+        StringBuilder sb3 = new StringBuilder();
+
+//        (\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
+//        (\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
+//        (^\x20\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
+        // 更改,必须以空格开头,否则会匹配到换行符   (还是用原来的,但是上下相隔4个空字符才算孩子),其实两个就够了,因为一般也就多出一个\n,或者可以折中改为3个
         String regExp = "(\\s*)(\".*?)([0-9a-zA-Z]*)(\".*?:.*?\\s*?)(.*)(\\s*?.*?)\n";
         Pattern pattern = Pattern.compile(regExp);
         Matcher matcher = pattern.matcher(origin);
         StringBuffer res = new StringBuffer();
         while (matcher.find()) {
+            sb3.append(matcher.group(1)).append(matcher.group(2)).append(matcher.group(3)).append(",");
             sb2.append(matcher.group(1)).append(",");
             sb.append(matcher.group(3)).append(",");
             // 描述文本里面经常有逗号,不常见#号,用#号好了
-            explain.append(matcher.group(5)).append("#");
+            // 刚刚发现的错误,#会被当做注释符号,那还是用其他的好了.
+            explain.append(matcher.group(5)).append("&");
         }
+        String[] sHeadArr = sb3.toString().split(",");
         String[] sArr = changeUnderToUpperLetter(sb.toString()).split(",");
         String[] spaceArr = sb2.toString().split(",");
-        String[] explainArr = explain.toString().split("#");
+        String[] explainArr = explain.toString().split("&");
+//        boolean isChild = false;
         // 标记上次的缩进个数
+        int spaceNum = 4;
+        // 一般来说缩进就是4个空格
+        int tabSize = 4;
+        int plusNum = 0;
+        // 标记现在是否在某个孩子内
         boolean isChild = false;
+        Stack<Integer> isChildStack = new Stack<>();
         int flag = 0;
         String flagStr = "";
         forOne:
@@ -498,9 +446,10 @@ public class 转整个gitee的md文件到showdoc {
             String key = sArr[i] + "" + spaceArr[i].length();
 
             // 如果这个参数是前面有个对象或者对象数组,也就是这个参数对象或者对象数组的孩子,那么
-            if (isChild) {
-
-            }
+            // 用来解决多对象啊或者多对象数组的问题,考虑以后暂时先不解决,感觉一般都是同表的不同type,其实没必要重复加字段
+//            if (isChild) {
+//
+//            }
 
 //            请检查
 //            if (explainArr[i-1].replace(" ","").equals("{") || explainArr[i-1].replace(" ","").equals("[") ){
@@ -514,13 +463,38 @@ public class 转整个gitee的md文件到showdoc {
 //                flag = -1;
 //                flagStr = "";
 //            }
+            // spaceNum是全局记录用的,spaceLen是当前的
+            int spaceLen = spaceArr[i].replace("\t","    ").length();
+//            if (spaceArr[i].length() >= 8 && ("{".equals(explainArr[i - 1].replace(" ", "")) || "[".equals(explainArr[i - 1].replace(" ", "")))) {
+            if (spaceArr[i].length() >= 8 ) {
+                // 对象的孩子退四格
+                // 对象数组的孩子退格
+                if ( spaceLen - spaceNum  >2   ){
+                    // 这里说明进入了对象或者对象数组,4以上的是不会判断的,那个肯定是第一层级,然后这个tabSize初始化的时候也就是第一层级
+                    isChild = true;
+                    isChildStack.push(spaceLen);
+                    spaceNum = spaceLen;
+                }
+                else if (spaceLen - spaceNum < - 2 ){
+                    isChild = false;
+                    // 有来有回,回来了说明已经又到同级了.  有时候回来是一次性回两层的,所以这里好像有些不对.
+//                    回来的层数不一定能完全确定,所以有些不好判断()
+//                    暂时有个方法,把这回的参数之间的字符串截取出来,看有几个 }   这个
+                    String bt = " 为了避免符号前后没东西  " +origin.substring(origin.indexOf(sHeadArr[i-1]),origin.indexOf(sHeadArr[i]))+" 为了避免符号前后没东西  ";
+                    String[] btArr = bt.split("}");
+//                    if (bt)
+                    int backspaceNum = btArr.length-1;
+                    for (int l=0;l<backspaceNum;l++){
+                        isChildStack.pop();
+                    }
 
-
-            if (spaceArr[i].length() >= 8 && (explainArr[i - 1].replace(" ", "").equals("{") || explainArr[i - 1].replace(" ", "").equals("["))) {
+                    spaceNum = spaceLen;
+                }
                 flagStr = sArr[i - 1];
                 String repeatingKey = flagStr + key;
                 repeatingObject.add(repeatingKey);
             }
+            plusNum = isChildStack.size();
             if (variableName.contains(key)) {
                 continue forOne;
 //                if (explainArr[i-1].replace(" ","").equals("[") || explainArr[i-1].replace(" ","").equals("{")){
@@ -534,8 +508,10 @@ public class 转整个gitee的md文件到showdoc {
             res.append("|");
             // 一个制表符是4个空格,一般来说第一级是4个空格,第二级是12个空格,第三级是20个空格,这里我选/8,每级多个+号
 //            暂时没有遇到4,8,12的情况
+            // 对象他的孩子是退4个空格,对象数组他的孩子是退8个空格,这里需要再次判断
             int spaceCount = (spaceArr[i].replace("\t", "    ").length()) / 8;
-            for (int j = 0; j < spaceCount; j++) {
+
+            for (int j = 0; j < plusNum; j++) {
                 res.append("+");
             }
             res.append("" + sArr[i] + " ");
@@ -544,20 +520,23 @@ public class 转整个gitee的md文件到showdoc {
 //            }else {
 //                res.append(" | 是 ");
 //            }
+            //
             String explainStr = explainArr[i].replace("\"\", //", "");
 //            String explainStr = explainArr[i];
             String isR = " | 是 ";
             // 必填信息提取出来后表格里面删除是否必填的说明,然后删除中英文括号 editflag002
             for (String a : notRequired) {
                 if (explainStr.contains(a)) {
-                    explainStr = explainStr.replace("（" + a + "）", "").replace("(" + a + ")", "").replace("[" + a + "]", "");
+                    explainStr = explainStr.replace("（" + a + "）", "").replace("(" + a + ")", "")
+                            .replace("[" + a + "]", "").replace(a, "");
                     isR = " | 否 ";
                     break;
                 }
             }
             for (String a : isRequired) {
                 if (explainStr.contains(a)) {
-                    explainStr = explainStr.replace("（" + a + "）", "").replace("(" + a + ")", "").replace("[" + a + "]", "");
+                    explainStr = explainStr.replace("（" + a + "）", "").replace("(" + a + ")", "")
+                            .replace("[" + a + "]", "").replace(a, "");
                     isR = " | 是 ";
                     break;
                 }
@@ -572,18 +551,29 @@ public class 转整个gitee的md文件到showdoc {
 //            }
             // 找他的字段类型,偶尔会有些接口文档的json里面有一些字段类型的信息,可以取出来用,不用手动复制粘贴
             String fieldType = searchFieldType(explainArr[i]);
+            String fieldTypePure = fieldType.replace(" ","").replace("|","");
+            // 字段类型默认就是小写吧,一般情况下也都是小写,除非当时写接口的人切换到英文输入法再切大写弄成首字母大写,一般都是小写的.不去做其他判断了
+            explainStr = explainStr.replace("[" + fieldTypePure + "]", "").replace("(" + fieldTypePure + ")", "")
+                    .replace("（" + fieldTypePure + "）", "").replace(fieldTypePure, "");
             res.append(fieldType);
             // 可以去掉一些空值,影响观感,有值的留着好了,做参考,  然后一些只有[  或者 {  这种就是数组或者一个对象
 
             // 要么把只要有注释的把非注释内容都去掉好了
             // 这里有个风险(极少数情况出现的),有时候注释用的是# , 有时候用的是 //  然后有时候// 里面有 # , # 里面有斜杠.
             // 暂时只能给//和#分个前后顺序,然后取前面的那个
-            if (explainStr.contains("/")) {
-                explainStr = explainStr.substring(explainStr.indexOf("/") + 2, explainStr.length());
+
+//            这个出错了,应该匹配两个//
+//              #维保总完成工时（单位分钟/单）
+            if (explainStr.contains("//")) {
+                explainStr = explainStr.substring(explainStr.indexOf("//") + 2);
             }
-            if (explainStr.replace(" ", "").equals("{")) {
+            // 之前
+            if (explainStr.contains("#")) {
+                explainStr = explainStr.substring(explainStr.indexOf("#") + 1);
+            }
+            if ("{".equals(explainStr.replace(" ", ""))) {
                 explainStr = "是个对象";
-            } else if (explainStr.replace(" ", "").equals("[")) {
+            } else if ("[".equals(explainStr.replace(" ", ""))) {
                 explainStr = "是个数组";
             }
             res.append(" |" + explainStr + "   |\n");
@@ -601,12 +591,12 @@ public class 转整个gitee的md文件到showdoc {
     static String searchFieldType(String explainStr) {
         // string[] 这种的判断放在  string前面,必经string[]里面也包含string这个字符串
         // 高频词汇放前面, 数组放前面(或者放在相关项目内)
-        String res = " | String";
+        String res = " | string";
         if (explainStr.contains("string") || explainStr.contains("String")) {
             if (explainStr.contains("string[]") || explainStr.contains("String[]") || explainStr.contains("string数组") || explainStr.contains("String数组")) {
-                res = " | String[] ";
+                res = " | string[] ";
             } else {
-                res = " | String ";
+                res = " | string ";
             }
         } else if (explainStr.contains("int") || explainStr.contains("integer") || explainStr.contains("Integer")) {
             if (explainStr.contains("int[]") || explainStr.contains("Integer[]") || explainStr.contains("integer[]")) {
@@ -621,7 +611,6 @@ public class 转整个gitee的md文件到showdoc {
         } else if (explainStr.contains("decimal") || explainStr.contains("Decimal")) {
             res = " | decimal ";
         }
-
         return res;
     }
 
