@@ -49,27 +49,62 @@ public class 转整个gitee的md文件到showdoc {
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
 
 
-        String origin = "#### URL: http://192.168.1.201:8050/cloudlink-building-guard/banner/delete?token=e56ce7b3-ab5d-4d83-8e0e-a2f3281614df\n" +
+        String origin = "#### URL:http://192.168.1.201:8926/inventoryStatistic/supplier\n" +
                 "#### 请求方式: POST\n" +
-                "#### 负责人：廖扬帆\n" +
+                "#### 负责人：蔡绍东\n" +
                 "#### 参数: \n" +
                 "```\n" +
-                "{           \n" +
-                "\t\"objectId\": \"a233f311-ac5e-488e-a243-9a9b3dfe2e99\",   //轮播id String[必传]\n" +
-                "\t\"active\" : 0                                    //删除标识 int[必传]\t\n" +
-                "\n" +
-                "} \n" +
-                "\n" +
+                "{\n" +
+                "    \"pageNum\":\"页数（int）（必须）\",\n" +
+                "    \"pageSize\":\"每页数量（int）（必须）\",\n" +
+                "    \"projectId\":\"项目id（string）（必须）\",\n" +
+                "    \"supplier\":\"供应商id（string）（可选）\",\n" +
+                "    \"inboundStartTime\":\"入库查询开始时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选，不传默认查询当月）\",\n" +
+                "    \"inboundEndTime\":\"入库查询结束时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选）\"\n" +
+                "}\n" +
                 "```\n" +
                 "#### 返回值：\n" +
                 "```\n" +
                 "{\n" +
                 "    \"code\": 200,\n" +
                 "    \"msg\": \"success\",\n" +
-                "    \"val\": \"50c69de3-9fd6-4052-8e3c-81da38dabe45\",\n" +
+                "    \"val\": {\n" +
+                "        \"statistic\": {\n" +
+                "            \"supplierCount\": \"供应商数（int）\",\n" +
+                "            \"inboundPrice\": \"总金额（decimal）\"\n" +
+                "        },\n" +
+                "        \"supplierPage\": {\n" +
+                "            \"pageNum\": 1,\n" +
+                "            \"pageSize\": 10,\n" +
+                "            \"orderBy\": \"\",\n" +
+                "            \"countTotal\": true,\n" +
+                "            \"result\": [\n" +
+                "                {\n" +
+                "                    \"supplier\": \"供应商id（string）\",\n" +
+                "                    \"supplierNumber\": \"供应商编号（string）\",\n" +
+                "                    \"supplierName\": \"供应商名称（string）\",\n" +
+                "                    \"totalInboundPrice\": \"合计金额\",\n" +
+                "                    \"supplierSearchDetailVOList\": [\n" +
+                "                        {\n" +
+                "                            \"accountNumber\": \"库存商品会计科目编号（string）\",\n" +
+                "                            \"accountName\": \"库存商品会计科目名称（string）\",\n" +
+                "                            \"inboundPrice\": \"金额（decimal）\"\n" +
+                "                        }\n" +
+                "                    ]\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"totalLength\": 1,\n" +
+                "            \"offset\": 0,\n" +
+                "            \"orderBySetted\": false\n" +
+                "        }\n" +
+                "    },\n" +
                 "    \"success\": 1\n" +
                 "}\n" +
-                "```";
+                "```\n" +
+                "#### 导出URL:http://192.168.1.201:8926/inventoryStatistic/supplier/export\n" +
+                "#### 请求方式: POST\n" +
+                "#### 负责人：蔡绍东\n" +
+                "#### 参数: 同上";
 
 
         origin = origin + "\n";
@@ -416,7 +451,7 @@ public class 转整个gitee的md文件到showdoc {
             // spaceNum是全局记录用的,spaceLen是当前的
             int spaceLen = spaceArr[i].replace("\t","    ").length();
 //            if (spaceArr[i].length() >= 8 && ("{".equals(explainArr[i - 1].replace(" ", "")) || "[".equals(explainArr[i - 1].replace(" ", "")))) {
-            if (spaceArr[i].length() >= 8 ) {
+            if (spaceArr[i].length() >= 4 ) {
                 // 对象的孩子退四格
                 // 对象数组的孩子退格   ,  因为\n的干扰,所以用当前的减去记录的值大于2(或者大于1就行,大于一可以避免有些退格符只有两个的情况
                 // 但是鉴于一般都是缩进四个空格,而且万一啥时候多按了个空格也会出错,还是大于2好了,大于3也行,但是如果他少按个空格也会错,)
@@ -435,8 +470,21 @@ public class 转整个gitee的md文件到showdoc {
 //                    暂时有个方法,把这回的参数之间的字符串截取出来,看有几个 }   这个
                     // 如果两个对象内有两个相同参数,那么indexOf就会取到比较先的那个,这个好像不大准,取最后一个什么的也有隐患.
                     // 主要是相同变量名相同缩进的变量这个有些多
-                    String bt = " 为了避免符号前后没东西  " +origin.substring(origin.lastIndexOf(sHeadArr[i-1]),origin.lastIndexOf(sHeadArr[i]))+" 为了避免符号前后没东西  ";
-                    if (bt.split("\n").length>4){
+//                    int nowIndex =
+                    int substrEnd = origin.lastIndexOf(sHeadArr[i]);
+                    int substrStart = origin.indexOf(sHeadArr[i-1]);
+                    while (substrStart < substrEnd){
+                        int tmp = origin.indexOf(sHeadArr[i-1],substrStart + 1);
+                        if ( tmp!=-1 && tmp < substrEnd){
+                            substrStart = tmp;
+                        }else {
+                            break ;
+                        }
+
+                    }
+                    String bt = " 为了避免符号前后没东西  " +origin.substring(substrStart, substrEnd)+" 为了避免符号前后没东西  ";
+                    // 偶尔层级会很多
+                    if (bt.split("\n").length>6){
                         throw new Exception("是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个");
                     }
                     String[] btArr = bt.split("}");
