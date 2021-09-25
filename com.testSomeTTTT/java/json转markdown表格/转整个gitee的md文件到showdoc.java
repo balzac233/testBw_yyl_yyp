@@ -468,14 +468,17 @@ public class 转整个gitee的md文件到showdoc {
 //            if (spaceArr[i].length() >= 8 && ("{".equals(explainArr[i - 1].replace(" ", "")) || "[".equals(explainArr[i - 1].replace(" ", "")))) {
             if (spaceArr[i].length() >= 8 ) {
                 // 对象的孩子退四格
-                // 对象数组的孩子退格
-                if ( spaceLen - spaceNum  >2   ){
+                // 对象数组的孩子退格   ,  因为\n的干扰,所以用当前的减去记录的值大于2(或者大于1就行,大于一可以避免有些退格符只有两个的情况
+                // 但是鉴于一般都是缩进四个空格,而且万一啥时候多按了个空格也会出错,还是大于2好了,大于3也行,但是如果他少按个空格也会错,)
+                // 总共可能的情况是 2,   3,4,5   而因为是否有\n的情况会向上浮动1个字符,   再加   3    4,5,6.  \n发生概率也高,因为只要不符合有参数名的,前面一行的\n会匹配到现在这行,所以最常见的情况是
+//          2,4    然后加1就是    3,5      也就是 2,3,4,5最常见                  但是0和1绝对不算是缩进,     综上     spaceLen - spaceNum  > 1 来判断
+                if ( spaceLen - spaceNum  >1   ){
                     // 这里说明进入了对象或者对象数组,4以上的是不会判断的,那个肯定是第一层级,然后这个tabSize初始化的时候也就是第一层级
                     isChild = true;
                     isChildStack.push(spaceLen);
                     spaceNum = spaceLen;
                 }
-                else if (spaceLen - spaceNum < - 2 ){
+                else if (spaceLen - spaceNum < - 1 ){
                     isChild = false;
                     // 有来有回,回来了说明已经又到同级了.  有时候回来是一次性回两层的,所以这里好像有些不对.
 //                    回来的层数不一定能完全确定,所以有些不好判断()
