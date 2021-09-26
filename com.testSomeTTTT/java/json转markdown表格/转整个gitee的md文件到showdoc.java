@@ -49,97 +49,166 @@ public class 转整个gitee的md文件到showdoc {
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
 
 
-        String origin = "#### URL:http://cloudlink-building-workflow/wfip/run\n" +
+        String origin = "#### URL:http://lyws-repair/repair/history\n" +
                 "#### 请求方式: POST\n" +
                 "#### 参数: \n" +
                 "```\n" +
                 "{\n" +
-                "    \"serviceType\": 0,\n" +
-                "    \"repair\": {\n" +
-                "        \"objectId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
-                "        \"equId\": \"a7cd98d8-3304-4ddf-9c73-8b6e869b5aa7\",\n" +
-                "        \"equName\": \"电气1号(KT007)\",\n" +
-                "        \"specialtyNames\": \"强电组\",\n" +
-                "        \"planStartTime\": null,\n" +
-                "        \"spaceType\": 0,\n" +
-                "        \"agentOrder\": {\n" +
-                "            \"contactId\": \"2ef26da6-e7ce-48bb-8006-e1e0228cbe72\",\n" +
-                "            \"companyName\": \"优酷\",\n" +
-                "            \"contact\": \"辽琳\",\n" +
-                "            \"contactTel\": \"13298709653\"\n" +
-                "        },\n" +
-                "        \"serviceName\": \"报修免费\",//必选新的服务类型名称\n" +
-                "        \"picture\": [],\n" +
-                "        \"specialtyIds\": \"f9ce28e8-1996-4faf-aa0e-b57651c658bc\",\n" +
-                "        \"urgency\": 0,\n" +
-                "        \"position\": \"山东科技大学城1\",\n" +
-                "        \"detail\": \"去1\",\n" +
-                "        \"buildingAreaId\": \"0b3960af-1539-4b73-8e09-9c5e0135b5ff\",\n" +
-                "        \"serviceId\": \"45c56628-bb58-4005-b4eb-db396499878b\",//必选新的服务类型id\n" +
-                "        \"serviceType\":0//必选新的服务类型\n" +
-                "        \"remark\":\"\"//变更备注\n" +
-                "    },\n" +
-                "    \"definitionProcessId\": \"0c04891c-5fc3-474a-99e1-420a4e1fd195\",\n" +
-                "    \"instanceProcessId\": \"c6ab12b2-2072-4290-8f8f-6640a63d526d\",\n" +
-                "    \"nodeCode\": \"change_service\",\n" +
-                "    \"businessId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
-                "    \"serviceId\": \"d2c7aec9-88d0-4a82-ad10-1f8ef11c032c\",\n" +
-                "    \"projectId\":\"f678fb40-1206-4127-9f1a-4353a70d8e81\",\n" +
-                "    \"nodeId\": \"\"\n" +
+                "\t\"objectId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\"//跟原来一样无变动\n" +
                 "}\n" +
+                "```\n" +
+                "#### 注意事项\n" +
+                "```\n" +
+                "\"nodeCode\": \"changeService\",\n" +
                 "```\n" +
                 "#### 返回值：\n" +
                 "```\n" +
                 "{\n" +
                 "\t\"code\": 200,\n" +
                 "\t\"msg\": \"success\",\n" +
-                "\t\"val\": [{\n" +
-                "\t\t\"specialtyName\": \"TEST\",\n" +
-                "\t\t\"serialNumber\": null,\n" +
-                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
-                "\t\t\"faultId\": \"5247c71a-fa8f-4c91-9a88-803f7fa5b9f0\",\n" +
-                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
-                "\t\t\"faultName\": \"sdfas\"\n" +
-                "\t}, {\n" +
-                "\t\t\"specialtyName\": \"TEST\",\n" +
-                "\t\t\"serialNumber\": 6,\n" +
-                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
-                "\t\t\"faultId\": \"cebe6474-af30-451d-8085-63d45bc8b214\",\n" +
-                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
-                "\t\t\"faultName\": \"555\"\n" +
-                "\t}, {\n" +
-                "\t\t\"specialtyName\": \"TEST\",\n" +
-                "\t\t\"serialNumber\": 16,\n" +
-                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
-                "\t\t\"faultId\": \"96b39fee-ccc1-49db-9065-42968e3e99d8\",\n" +
-                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
-                "\t\t\"faultName\": \"00\"\n" +
-                "\t}, {\n" +
-                "\t\t\"specialtyName\": \"TEST\",\n" +
-                "\t\t\"serialNumber\": 17,\n" +
-                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
-                "\t\t\"faultId\": \"925a7d65-6b64-43bb-9a55-303774ad6eee\",\n" +
-                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
-                "\t\t\"faultName\": \"31111111\"\n" +
-                "\t}],\n" +
+                "\t\"val\": {\n" +
+                "                // 新增属性\n" +
+                "                \"changeUserName\":\"\"//提交人名称\n" +
+                "                \"changeCause\":\"\"//变更原因\n" +
+                "                // 原属性不变\n" +
+                "                \"serviceType\": 0,\n" +
+                "\t\t\"companyName\": \"爱奇艺\",\n" +
+                "\t\t\"focus\": 0,\n" +
+                "\t\t\"equSys\": \"电气系统-照明配电箱系统-三级配电柜/箱\",\n" +
+                "\t\t\"contactTel\": \"13209097865\",\n" +
+                "\t\t\"specialtyIds\": \"b24e2b39-ea5c-46cf-b0ef-6f10d3bc2219\",\n" +
+                "\t\t\"number\": \"SDKJBX210301007\",\n" +
+                "\t\t\"systemName\": null,\n" +
+                "\t\t\"arrivalTime\": 1614601785000,\n" +
+                "\t\t\"contact\": \"王毅\",\n" +
+                "\t\t\"record\": 0,\n" +
+                "\t\t\"completeSign\": 1,\n" +
+                "\t\t\"commentSignPic\": \"http://ifreedev.oss-cn-hangzhou.aliyuncs.com/00db1171-9e2a-4869-aae6-ab2e534837cb.jpg\",\n" +
+                "\t\t\"specialtyNames\": \"保安组\",\n" +
+                "\t\t\"planStartTime\": null,\n" +
+                "\t\t\"contactId\": \"e9fa12c0-5b0c-46f3-a175-bdff95dc1533\",\n" +
+                "\t\t\"showUser\": [{\n" +
+                "\t\t\t\"mobileNum\": \"15215318626\",\n" +
+                "\t\t\t\"profilePhoto\": \"http://ifreedev.oss-cn-hangzhou.aliyuncs.com/358895e1-c941-49ca-b558-8f1e26b62ee7.jpg\",\n" +
+                "\t\t\t\"userName\": \"栗亚琪\",\n" +
+                "\t\t\t\"objectId\": \"26c78534-2243-42de-b6c0-ccfa5409eebe\"\n" +
+                "\t\t}],\n" +
+                "\t\t\"commentDetail\": \"快\",\n" +
+                "\t\t\"history\": [{\n" +
+                "\t\t\t\"createTime\": 1614570224000,\n" +
+                "\t\t\t\"historyId\": \"fd990b99-42e8-4e9e-b373-b9e6e7a9aced\",\n" +
+                "\t\t\t\"nodeCode\": \"repair\",\n" +
+                "\t\t\t\"index\": 1,\n" +
+                "\t\t\t\"detail\": \"工单由栗亚琪报修成功\",\n" +
+                "\t\t\t\"title\": \"已报修\"\n" +
+                "\t\t}, {\n" +
+                "\t\t\t\"createTime\": 1614570261000,\n" +
+                "\t\t\t\"historyId\": \"d462c0e5-82b5-4a75-abb2-38397e0b3602\",\n" +
+                "\t\t\t\"nodeCode\": \"assign\",\n" +
+                "\t\t\t\"index\": 2,\n" +
+                "\t\t\t\"detail\": \"栗亚琪已指派给栗亚琪\",\n" +
+                "\t\t\t\"title\": \"已指派\"\n" +
+                "\t\t}, {\n" +
+                "\t\t\t\"createTime\": 1614570269000,\n" +
+                "\t\t\t\"historyId\": \"35230e90-0e57-4b1d-a839-ec19ba38bc4d\",\n" +
+                "\t\t\t\"nodeCode\": \"accept\",\n" +
+                "\t\t\t\"index\": 3,\n" +
+                "\t\t\t\"detail\": \"栗亚琪已成功接单\",\n" +
+                "\t\t\t\"title\": \"已接单\"\n" +
+                "\t\t}, {\n" +
+                "\t\t\t\"createTime\": 1614570275000,\n" +
+                "\t\t\t\"historyId\": \"9907f26b-d58a-48c0-887d-7f3269e05363\",\n" +
+                "\t\t\t\"nodeCode\": \"showup\",\n" +
+                "\t\t\t\"index\": 4,\n" +
+                "\t\t\t\"detail\": \"栗亚琪已到场\",\n" +
+                "\t\t\t\"title\": \"已到场\"\n" +
+                "\t\t}, {\n" +
+                "\t\t\t\"createTime\": 1614570297000,\n" +
+                "\t\t\t\"historyId\": \"9b08f81b-058f-41ee-906b-4e2e680b744c\",\n" +
+                "\t\t\t\"nodeCode\": \"finish\",\n" +
+                "\t\t\t\"index\": 5,\n" +
+                "\t\t\t\"detail\": \"栗亚琪提交完工信息\",\n" +
+                "\t\t\t\"title\": \"已完工\"\n" +
+                "\t\t}, {\n" +
+                "\t\t\t\"createTime\": 1614570311000,\n" +
+                "\t\t\t\"historyId\": \"6f613477-0145-4910-b664-eb41a4afae05\",\n" +
+                "\t\t\t\"nodeCode\": \"appraise\",\n" +
+                "\t\t\t\"index\": 6,\n" +
+                "\t\t\t\"detail\": \"栗亚琪已完成评价\",\n" +
+                "\t\t\t\"title\": \"已评价\"\n" +
+                "\t\t}, {\n" +
+                "\t\t\t\"createTime\": 1614601785000,\n" +
+                "\t\t\t\"historyId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
+                "\t\t\t\"nodeCode\": \"change\",\n" +
+                "\t\t\t\"index\": 99,\n" +
+                "\t\t\t\"detail\": \"栗亚琪变更了工单信息\",\n" +
+                "\t\t\t\"title\": \"已变更\"\n" +
+                "\t\t}],\n" +
+                "\t\t\"commentStatus\": 1,\n" +
+                "\t\t\"tags\": [],\n" +
+                "\t\t\"preNode\": null,\n" +
+                "\t\t\"changeMajor\": 1,\n" +
+                "\t\t\"faultId\": null,\n" +
+                "\t\t\"position\": \"山东科技大学城\",\n" +
+                "\t\t\"detail\": \"去\",\n" +
+                "\t\t\"nodeId\": null,\n" +
+                "\t\t\"currentPreNode\": null,\n" +
+                "\t\t\"repairTel\": \"15215318626\",\n" +
+                "\t\t\"spaceType\": \"0\",\n" +
+                "\t\t\"commentUserName\": \"栗亚琪\",\n" +
+                "\t\t\"originaleEquId\": \"a3f97cba-1710-447f-985e-cf8a27c4f68a\",\n" +
+                "\t\t\n" +
+                "\t\t\"title\": \"\",\n" +
+                "\t\t\"button\": [],\n" +
+                "\t\t\"specialtyName\": null,\n" +
+                "\t\t\"etaStatus\": 2,\n" +
+                "\t\t\"operResult\": null,\n" +
+                "\t\t\"definitionProcessId\": \"0c04891c-5fc3-474a-99e1-420a4e1fd195\",\n" +
+                "\t\t\"instanceProcessId\": null,\n" +
+                "\t\t\"urgency\": 0,\n" +
+                "\t\t\"userIds\": [{\n" +
+                "\t\t\t\"mobileNum\": \"15215318626\",\n" +
+                "\t\t\t\"profilePhoto\": \"http://ifreedev.oss-cn-hangzhou.aliyuncs.com/358895e1-c941-49ca-b558-8f1e26b62ee7.jpg\",\n" +
+                "\t\t\t\"userName\": \"栗亚琪\",\n" +
+                "\t\t\t\"objectId\": \"26c78534-2243-42de-b6c0-ccfa5409eebe\"\n" +
+                "\t\t}],\n" +
+                "\t\t\"isVisit\": 0,\n" +
+                "\t\t\"serviceId\": \"d2c7aec9-88d0-4a82-ad10-1f8ef11c032c\",\n" +
+                "\t\t\"chargeName\": \"\",\n" +
+                "\t\t\"selectExecutive\": 0,\n" +
+                "\t\t\"objectId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
+                "\t\t\"takePhoto\": 0,\n" +
+                "\t\t\"serviceName\": \"小波服务类型\",\n" +
+                "\t\t\"picture\": [],\n" +
+                "\t\t\"faultName\": null,\n" +
+                "\t\t\"timeOut\": \"0\",\n" +
+                "\t\t\"evaluateSign\": 1,\n" +
+                "\t\t\"changeSpecialty\": 0,\n" +
+                "\t\t\"createTime\": 1614570223000,\n" +
+                "\t\t\"teamwork\": [],\n" +
+                "\t\t\"chargeId\": \"\",\n" +
+                "\t\t\"repairUser\": \"栗亚琪\",\n" +
+                "\t\t\"isCharge\": 0,\n" +
+                "\t\t\"buildingAreaId\": \"0b3960af-1539-4b73-8e09-9c5e0135b5ff\"\n" +
+                "\t},\n" +
                 "\t\"success\": 1\n" +
                 "}\n" +
-                "```";
+                "```\n";
 
 
         origin = origin + "\n";
 
-        if (origin.contains(". 请求地址")){
+        if (origin.contains(". 请求地址")) {
             // (^\d*)(\.\s*)([\u4e00-\u9fa5]*)        to            - $3
             // 标题要大于两个字   ,   很见鬼,有些符号也算是中文
             String pattern = "(\\d*)(\\.\\s*)([\\u4e00-\\u9fa5]{2,})";
             Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(origin);
             StringBuffer sb = new StringBuffer();
-            while (m.find()){
-                String tmp  = m.group(0);
+            while (m.find()) {
+                String tmp = m.group(0);
                 String key = m.group(3);
-                m.appendReplacement(sb, "- "+key);
+                m.appendReplacement(sb, "- " + key);
             }
             m.appendTail(sb);
 //            System.out.println(sb.toString());
@@ -433,7 +502,7 @@ public class 转整个gitee的md文件到showdoc {
 //        boolean isChild = false;
         // 标记上次的缩进个数  刚开始初始化应该用
         int spaceNum = 0;
-        if (sArr.length>0){
+        if (sArr.length > 0) {
             spaceNum = spaceArr[0].length();
         }
         // 一般来说缩进就是4个空格
@@ -469,21 +538,20 @@ public class 转整个gitee的md文件到showdoc {
 //                flagStr = "";
 //            }
             // spaceNum是全局记录用的,spaceLen是当前的
-            int spaceLen = spaceArr[i].replace("\t","    ").length();
+            int spaceLen = spaceArr[i].replace("\t", "    ").length();
 //            if (spaceArr[i].length() >= 8 && ("{".equals(explainArr[i - 1].replace(" ", "")) || "[".equals(explainArr[i - 1].replace(" ", "")))) {
-            if (spaceArr[i].length() >= 4 ) {
+            if (spaceArr[i].length() >= 4) {
                 // 对象的孩子退四格
                 // 对象数组的孩子退格   ,  因为\n的干扰,所以用当前的减去记录的值大于2(或者大于1就行,大于一可以避免有些退格符只有两个的情况
                 // 但是鉴于一般都是缩进四个空格,而且万一啥时候多按了个空格也会出错,还是大于2好了,大于3也行,但是如果他少按个空格也会错,)
                 // 总共可能的情况是 2,   3,4,5   而因为是否有\n的情况会向上浮动1个字符,   再加   3    4,5,6.  \n发生概率也高,因为只要不符合有参数名的,前面一行的\n会匹配到现在这行,所以最常见的情况是
 //          2,4    然后加1就是    3,5      也就是 2,3,4,5最常见                  但是0和1绝对不算是缩进,     综上     spaceLen - spaceNum  > 1 来判断
-                if ( spaceLen - spaceNum  >1   ){
+                if (spaceLen - spaceNum > 1) {
                     // 这里说明进入了对象或者对象数组,4以上的是不会判断的,那个肯定是第一层级,然后这个tabSize初始化的时候也就是第一层级
                     isChild = true;
                     isChildStack.push(spaceLen);
                     spaceNum = spaceLen;
-                }
-                else if (spaceLen - spaceNum < - 1 ){
+                } else if (spaceLen - spaceNum < -1) {
                     isChild = false;
                     // 有来有回,回来了说明已经又到同级了.  有时候回来是一次性回两层的,所以这里好像有些不对.
 //                    回来的层数不一定能完全确定,所以有些不好判断()
@@ -492,32 +560,32 @@ public class 转整个gitee的md文件到showdoc {
                     // 主要是相同变量名相同缩进的变量这个有些多
 //                    int nowIndex =
                     int substrEnd = origin.lastIndexOf(sHeadArr[i]);
-                    int substrStart = origin.indexOf(sHeadArr[i-1]);
-                    while (substrStart < substrEnd){
-                        int tmp = origin.indexOf(sHeadArr[i-1],substrStart + 1);
-                        if ( tmp!=-1 && tmp < substrEnd){
+                    int substrStart = origin.indexOf(sHeadArr[i - 1]);
+                    while (substrStart < substrEnd) {
+                        int tmp = origin.indexOf(sHeadArr[i - 1], substrStart + 1);
+                        if (tmp != -1 && tmp < substrEnd) {
                             substrStart = tmp;
-                        }else {
-                            break ;
+                        } else {
+                            break;
                         }
 
                     }
-                    String bt = " 为了避免符号前后没东西  " +origin.substring(substrStart, substrEnd)+" 为了避免符号前后没东西  ";
+                    String bt = " 为了避免符号前后没东西  " + origin.substring(substrStart, substrEnd) + " 为了避免符号前后没东西  ";
                     // 偶尔层级会很多
-                    if (bt.split("\n").length>8){
+                    if (bt.split("\n").length > 8) {
 //                        throw new Exception("是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个");
                         System.out.println("##################是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个#########################");
                     }
                     String[] btArr = bt.split("}");
 //                    if (bt)
-                    int backspaceNum = btArr.length-1;
-                    for (int l=0;l<backspaceNum;l++){
+                    int backspaceNum = btArr.length - 1;
+                    for (int l = 0; l < backspaceNum; l++) {
                         isChildStack.pop();
                     }
 
                     spaceNum = spaceLen;
                 }
-                if (isChildStack.size()>0 && i>0){
+                if (isChildStack.size() > 0 && i > 0) {
                     flagStr = sArr[i - 1];
                     String repeatingKey = flagStr + key;
                     repeatingObject.add(repeatingKey);
@@ -580,7 +648,7 @@ public class 转整个gitee的md文件到showdoc {
 //            }
             // 找他的字段类型,偶尔会有些接口文档的json里面有一些字段类型的信息,可以取出来用,不用手动复制粘贴
             String fieldType = searchFieldType(explainArr[i]);
-            String fieldTypePure = fieldType.replace(" ","").replace("|","");
+            String fieldTypePure = fieldType.replace(" ", "").replace("|", "");
             // 字段类型默认就是小写吧,一般情况下也都是小写,除非当时写接口的人切换到英文输入法再切大写弄成首字母大写,一般都是小写的.不去做其他判断了
             explainStr = explainStr.replace("[" + fieldTypePure + "]", "").replace("(" + fieldTypePure + ")", "")
                     .replace("（" + fieldTypePure + "）", "").replace(fieldTypePure, "");
@@ -612,9 +680,10 @@ public class 转整个gitee的md文件到showdoc {
         }
 //        System.out.println(res.toString());
         String resStr = res.toString();
-        if (resStr.contains("+success")){
+        if (resStr.contains("+success")) {
             // 一般都是返回高级的缩进出问题,相同层级同名字段过多会出现这个问题,但是概率小,如果出现就抛异常
-            System.out.println("缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下.");
+            System.out.println("####################### 缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下." +
+                    "或者把json放进vscode格式化一下再放回去执行一下这个工具");
 //            throw new Exception("缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下.");
         }
         return resStr;
@@ -664,6 +733,48 @@ public class 转整个gitee的md文件到showdoc {
         return sb.toString();
     }
 
+//    public static String formatJson(String json) {
+//        StringBuffer result = new StringBuffer();
+//        int length = json.length();
+//        int number = 0;
+//        char key = 0;
+////遍历输入字符串
+//        for (int i = 0; i < length; i++) {
+////获取当前字符
+//            key = json.charAt(i);
+////如果当前字符是前方括号、前花括号做如下处理
+//            if ((key == '[') || (key == '{')) {
+//                if ((i - 1 > 0) && (json.charAt(i - 1) == ':')) {
+//                    result.append('\n');
+//                    result.append(indent(number));
+//                }
+////打印当前的字符
+//                result.append(key);
+//                result.append('\n');
+//                number++;
+//                result.append(indent(number));
+//                continue;
+//            }
+//            if ((key == ']' || (key == '}'))) {
+//                result.append('\n');
+//                number--;
+//                result.append(indent(number));
+//                result.append(key);
+//                if (((i + 1) < length) && (json.charAt(i + 1) != ',')) {
+//                    result.append('\n');
+//                }
+//                continue;
+//            }
+//            if ((key == ',')) {
+//                result.append(key);
+//                result.append('\n');
+//                result.append(indent(number));
+//                continue;
+//            }
+//            result.append(key);
+//        }
+//        return result.toString();
+//    }
 
     /**
      * // 暂未解决  // 解决不同对象相同参数名的问题,例如

@@ -5,8 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @description
- * 改动记录:
+ * @description 改动记录:
  * 2021年9月24日14:02:40   yyp    改动地点为 editflag001   增加返回值可能取的标题
  * 2021年9月24日14:17:52  yyp    改动地点为  editflag002   必填信息提取出来后表格里面删除是否必填的说明,然后删除中英文括号
  * @author: yyp
@@ -16,7 +15,7 @@ public class 转整个gitee的md文件到showdoc_backup_2021年9月24日144057 {
 
     //    private static Set<String> isRequired = new HashSet<>(Arrays.asList("非必传"));
     private static List<String> notRequired = Arrays.asList("非必传", "不必传输", "不必传", "可选", "选填");
-    private static List<String> isRequired = Arrays.asList("必传", "必填","必须");
+    private static List<String> isRequired = Arrays.asList("必传", "必填", "必须");
 
     public static void main(String[] args) throws Exception {
 
@@ -141,7 +140,7 @@ public class 转整个gitee的md文件到showdoc_backup_2021年9月24日144057 {
 ////      生成md[[返参]]表格
 //        toShowDocResMultiLevelv2(origin, 0);
 
-        System.out.println(toShowDocMultiLevel(origin,0));
+        System.out.println(toShowDocMultiLevel(origin, 0));
 //        System.out.println(toWholeShowDoc(origin));
 
 //        partsList.stream().forEach(a-> System.out.println(a+"\n\n===============================================\n\n"));
@@ -728,6 +727,60 @@ public class 转整个gitee的md文件到showdoc_backup_2021年9月24日144057 {
         System.out.println(res.toString());
         return res.toString();
     }
+
+    public static String formatJson(String json) {
+        StringBuffer result = new StringBuffer();
+        int length = json.length();
+        int number = 0;
+        char key = 0;
+//遍历输入字符串
+        for (int i = 0; i < length; i++) {
+//获取当前字符
+            key = json.charAt(i);
+//如果当前字符是前方括号、前花括号做如下处理
+            if ((key == '[') || (key == '{')) {
+                if ((i - 1 > 0) && (json.charAt(i - 1) == ':')) {
+                    result.append('\n');
+                    result.append(indent(number));
+                }
+//打印当前的字符
+                result.append(key);
+                result.append('\n');
+                number++;
+                result.append(indent(number));
+                continue;
+            }
+            if ((key == ']' || (key == '}'))) {
+                result.append('\n');
+                number--;
+                result.append(indent(number));
+                result.append(key);
+                if (((i + 1) < length) && (json.charAt(i + 1) != ',')) {
+                    result.append('\n');
+                }
+                continue;
+            }
+            if ((key == ',')) {
+                result.append(key);
+                result.append('\n');
+                result.append(indent(number));
+                continue;
+            }
+            result.append(key);
+        }
+        return result.toString();
+    }
+
+    private static String SPACE = " ";
+
+    private static String indent(int number) {
+        StringBuffer result = new StringBuffer();
+        for (int i = 0; i < number; i++) {
+            result.append(SPACE);
+        }
+        return result.toString();
+    }
+
 
     /**
      * // 暂未解决  // 解决不同对象相同参数名的问题,例如
