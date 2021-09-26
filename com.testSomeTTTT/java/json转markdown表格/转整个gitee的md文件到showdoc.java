@@ -49,62 +49,82 @@ public class 转整个gitee的md文件到showdoc {
         // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
 
 
-        String origin = "#### URL:http://192.168.1.201:8926/inventoryStatistic/supplier\n" +
+        String origin = "#### URL:http://cloudlink-building-workflow/wfip/run\n" +
                 "#### 请求方式: POST\n" +
-                "#### 负责人：蔡绍东\n" +
                 "#### 参数: \n" +
                 "```\n" +
                 "{\n" +
-                "    \"pageNum\":\"页数（int）（必须）\",\n" +
-                "    \"pageSize\":\"每页数量（int）（必须）\",\n" +
-                "    \"projectId\":\"项目id（string）（必须）\",\n" +
-                "    \"supplier\":\"供应商id（string）（可选）\",\n" +
-                "    \"inboundStartTime\":\"入库查询开始时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选，不传默认查询当月）\",\n" +
-                "    \"inboundEndTime\":\"入库查询结束时间（string，格式：yyyy-MM-dd HH:mm:ss）（可选）\"\n" +
+                "    \"serviceType\": 0,\n" +
+                "    \"repair\": {\n" +
+                "        \"objectId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
+                "        \"equId\": \"a7cd98d8-3304-4ddf-9c73-8b6e869b5aa7\",\n" +
+                "        \"equName\": \"电气1号(KT007)\",\n" +
+                "        \"specialtyNames\": \"强电组\",\n" +
+                "        \"planStartTime\": null,\n" +
+                "        \"spaceType\": 0,\n" +
+                "        \"agentOrder\": {\n" +
+                "            \"contactId\": \"2ef26da6-e7ce-48bb-8006-e1e0228cbe72\",\n" +
+                "            \"companyName\": \"优酷\",\n" +
+                "            \"contact\": \"辽琳\",\n" +
+                "            \"contactTel\": \"13298709653\"\n" +
+                "        },\n" +
+                "        \"serviceName\": \"报修免费\",//必选新的服务类型名称\n" +
+                "        \"picture\": [],\n" +
+                "        \"specialtyIds\": \"f9ce28e8-1996-4faf-aa0e-b57651c658bc\",\n" +
+                "        \"urgency\": 0,\n" +
+                "        \"position\": \"山东科技大学城1\",\n" +
+                "        \"detail\": \"去1\",\n" +
+                "        \"buildingAreaId\": \"0b3960af-1539-4b73-8e09-9c5e0135b5ff\",\n" +
+                "        \"serviceId\": \"45c56628-bb58-4005-b4eb-db396499878b\",//必选新的服务类型id\n" +
+                "        \"serviceType\":0//必选新的服务类型\n" +
+                "        \"remark\":\"\"//变更备注\n" +
+                "    },\n" +
+                "    \"definitionProcessId\": \"0c04891c-5fc3-474a-99e1-420a4e1fd195\",\n" +
+                "    \"instanceProcessId\": \"c6ab12b2-2072-4290-8f8f-6640a63d526d\",\n" +
+                "    \"nodeCode\": \"change_service\",\n" +
+                "    \"businessId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
+                "    \"serviceId\": \"d2c7aec9-88d0-4a82-ad10-1f8ef11c032c\",\n" +
+                "    \"projectId\":\"f678fb40-1206-4127-9f1a-4353a70d8e81\",\n" +
+                "    \"nodeId\": \"\"\n" +
                 "}\n" +
                 "```\n" +
                 "#### 返回值：\n" +
                 "```\n" +
                 "{\n" +
-                "    \"code\": 200,\n" +
-                "    \"msg\": \"success\",\n" +
-                "    \"val\": {\n" +
-                "        \"statistic\": {\n" +
-                "            \"supplierCount\": \"供应商数（int）\",\n" +
-                "            \"inboundPrice\": \"总金额（decimal）\"\n" +
-                "        },\n" +
-                "        \"supplierPage\": {\n" +
-                "            \"pageNum\": 1,\n" +
-                "            \"pageSize\": 10,\n" +
-                "            \"orderBy\": \"\",\n" +
-                "            \"countTotal\": true,\n" +
-                "            \"result\": [\n" +
-                "                {\n" +
-                "                    \"supplier\": \"供应商id（string）\",\n" +
-                "                    \"supplierNumber\": \"供应商编号（string）\",\n" +
-                "                    \"supplierName\": \"供应商名称（string）\",\n" +
-                "                    \"totalInboundPrice\": \"合计金额\",\n" +
-                "                    \"supplierSearchDetailVOList\": [\n" +
-                "                        {\n" +
-                "                            \"accountNumber\": \"库存商品会计科目编号（string）\",\n" +
-                "                            \"accountName\": \"库存商品会计科目名称（string）\",\n" +
-                "                            \"inboundPrice\": \"金额（decimal）\"\n" +
-                "                        }\n" +
-                "                    ]\n" +
-                "                }\n" +
-                "            ],\n" +
-                "            \"totalLength\": 1,\n" +
-                "            \"offset\": 0,\n" +
-                "            \"orderBySetted\": false\n" +
-                "        }\n" +
-                "    },\n" +
-                "    \"success\": 1\n" +
+                "\t\"code\": 200,\n" +
+                "\t\"msg\": \"success\",\n" +
+                "\t\"val\": [{\n" +
+                "\t\t\"specialtyName\": \"TEST\",\n" +
+                "\t\t\"serialNumber\": null,\n" +
+                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
+                "\t\t\"faultId\": \"5247c71a-fa8f-4c91-9a88-803f7fa5b9f0\",\n" +
+                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
+                "\t\t\"faultName\": \"sdfas\"\n" +
+                "\t}, {\n" +
+                "\t\t\"specialtyName\": \"TEST\",\n" +
+                "\t\t\"serialNumber\": 6,\n" +
+                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
+                "\t\t\"faultId\": \"cebe6474-af30-451d-8085-63d45bc8b214\",\n" +
+                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
+                "\t\t\"faultName\": \"555\"\n" +
+                "\t}, {\n" +
+                "\t\t\"specialtyName\": \"TEST\",\n" +
+                "\t\t\"serialNumber\": 16,\n" +
+                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
+                "\t\t\"faultId\": \"96b39fee-ccc1-49db-9065-42968e3e99d8\",\n" +
+                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
+                "\t\t\"faultName\": \"00\"\n" +
+                "\t}, {\n" +
+                "\t\t\"specialtyName\": \"TEST\",\n" +
+                "\t\t\"serialNumber\": 17,\n" +
+                "\t\t\"specialtyId\": \"5f8eaa3d-d288-451b-9ec1-cf3ade927031\",\n" +
+                "\t\t\"faultId\": \"925a7d65-6b64-43bb-9a55-303774ad6eee\",\n" +
+                "\t\t\"serviceId\": \"a5138cd6-74bd-11ea-a878-0242ac110004\",\n" +
+                "\t\t\"faultName\": \"31111111\"\n" +
+                "\t}],\n" +
+                "\t\"success\": 1\n" +
                 "}\n" +
-                "```\n" +
-                "#### 导出URL:http://192.168.1.201:8926/inventoryStatistic/supplier/export\n" +
-                "#### 请求方式: POST\n" +
-                "#### 负责人：蔡绍东\n" +
-                "#### 参数: 同上";
+                "```";
 
 
         origin = origin + "\n";
@@ -484,8 +504,9 @@ public class 转整个gitee的md文件到showdoc {
                     }
                     String bt = " 为了避免符号前后没东西  " +origin.substring(substrStart, substrEnd)+" 为了避免符号前后没东西  ";
                     // 偶尔层级会很多
-                    if (bt.split("\n").length>6){
-                        throw new Exception("是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个");
+                    if (bt.split("\n").length>8){
+//                        throw new Exception("是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个");
+                        System.out.println("##################是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个#########################");
                     }
                     String[] btArr = bt.split("}");
 //                    if (bt)
@@ -593,7 +614,8 @@ public class 转整个gitee的md文件到showdoc {
         String resStr = res.toString();
         if (resStr.contains("+success")){
             // 一般都是返回高级的缩进出问题,相同层级同名字段过多会出现这个问题,但是概率小,如果出现就抛异常
-            throw new Exception("缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下.");
+            System.out.println("缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下.");
+//            throw new Exception("缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下.");
         }
         return resStr;
     }
