@@ -590,7 +590,12 @@ public class 转整个gitee的md文件到showdoc {
             System.out.println("######################有多个对象,请手动再继续处理对象里面的内容######################");
         }
 //        System.out.println(res.toString());
-        return res.toString();
+        String resStr = res.toString();
+        if (resStr.contains("+success")){
+            // 一般都是返回高级的缩进出问题,相同层级同名字段过多会出现这个问题,但是概率小,如果出现就抛异常
+            throw new Exception("缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下.");
+        }
+        return resStr;
     }
 
     /**
