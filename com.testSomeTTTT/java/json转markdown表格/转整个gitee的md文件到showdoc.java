@@ -21,7 +21,424 @@ public class 转整个gitee的md文件到showdoc {
 
     public static void main(String[] args) throws Exception {
 
+        long now = 0L;
         long nowmilli = System.currentTimeMillis();
+
+        /**
+         *
+         * 超长案例
+         *
+         * String origin = "#### URL:http://192.168.1.201:8050/lyws-maintenance-ge/plan/detail?token=04d67ebb-6f7e-42f1-b7d1-4212af12ebc0&projectId=21ef6cbe-1f44-484f-bd83-9e225ddf376b&planId=1a2ae4e1-b10c-4dad-8630-2d45a7a4faec\n" +
+         *                 "#### 请求方式: POST请求\n" +
+         *                 "#### 负责人：葛志华\n" +
+         *                 "#### 必填参数: \n" +
+         *                 "```\n" +
+         *                 "\n" +
+         *                 "```\n" +
+         *                 "#### 返回值：\n" +
+         *                 "```\n" +
+         *                 "{\n" +
+         *                 "    \"code\": 200,\n" +
+         *                 "    \"msg\": \"success\",\n" +
+         *                 "    \"val\": {\n" +
+         *                 "        \"objectId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "        \"name\": \"预维护计划测试5000\",\n" +
+         *                 "        \"startDate\": 1592582400000,\n" +
+         *                 "        \"endDate\": 1600531200000,\n" +
+         *                 "        \"cycleType\": 4,\n" +
+         *                 "        \"cycleModelType\": 5,\n" +
+         *                 "        \"cycleModelValue\": 2,\n" +
+         *                 "        \"daysVO\": null,\n" +
+         *                 "        \"dayVO\": null,\n" +
+         *                 "        \"weekVO\": null,\n" +
+         *                 "        \"monthVO\": null,\n" +
+         *                 "        \"yearVO\": {\n" +
+         *                 "            \"planStartDate\": null,\n" +
+         *                 "            \"planeEndDate\": 1600531200000,\n" +
+         *                 "            \"startLocalTimes\": [\n" +
+         *                 "                \"09:20:20\",\n" +
+         *                 "                \"15:27:20\"\n" +
+         *                 "            ],\n" +
+         *                 "            \"taskTime\": 2,\n" +
+         *                 "            \"taskTimeType\": 1\n" +
+         *                 "        },\n" +
+         *                 "        \"performerType\": 1,\n" +
+         *                 "        \"specialtyId\": \"662dc478-f32c-4eb0-b5cb-9888c2699394\",\n" +
+         *                 "        \"specialtyName\": \"强电组\",\n" +
+         *                 "        \"specialExecVOS\": [{\n" +
+         *                 "                \"objectId\": \"7bc73964-dc2a-4298-87c7-b5a6f30ad5c4\",\n" +
+         *                 "                \"type\": 1,\n" +
+         *                 "                \"executorId\": \"e89ff084-316a-4b3a-8b1f-5ddc90e98107\",\n" +
+         *                 "                \"executorName\": \"李先生\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\"\n" +
+         *                 "            },\n" +
+         *                 "            {\n" +
+         *                 "                \"objectId\": \"a4f95aff-d845-4daa-a08c-35780ea02250\",\n" +
+         *                 "                \"type\": 1,\n" +
+         *                 "                \"executorId\": \"ec41aa4a-059f-4526-bb60-d2c83d353975\",\n" +
+         *                 "                \"executorName\": \"亚丽\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\"\n" +
+         *                 "            }\n" +
+         *                 "        ],\n" +
+         *                 "        \"maintenanceVOS\": [{\n" +
+         *                 "            \"objectId\": \"cd4a883f-28d2-44bf-a81f-b478c49229e0\",\n" +
+         *                 "            \"maintenanceId\": \"bf121047-a15d-4777-bfcf-f0a973a40123\",\n" +
+         *                 "            \"maintenanceName\": \"1\",\n" +
+         *                 "            \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "            \"planExecutorVOS\": [{\n" +
+         *                 "                \"objectId\": \"245926fb-cc0a-4c54-8c83-38da2dd076e8\",\n" +
+         *                 "                \"type\": 2,\n" +
+         *                 "                \"executorId\": \"aa7f9b14-9915-4580-9acb-b684d5115ecc\",\n" +
+         *                 "                \"executorName\": null,\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\"\n" +
+         *                 "            }]\n" +
+         *                 "        }],\n" +
+         *                 "        \"principal\": \"d1c717dc-2edb-4f2c-b545-0954e5576d01\",\n" +
+         *                 "        \"principalName\": \"寇鹏\",\n" +
+         *                 "        \"approve\": 1,\n" +
+         *                 "        \"remark\": \"备注XXXXXXXXXXX\",\n" +
+         *                 "        \"createTime\": 1592221244000,\n" +
+         *                 "        \"createUser\": null,\n" +
+         *                 "        \"modifyTime\": 1592221244000,\n" +
+         *                 "        \"modifyUser\": null,\n" +
+         *                 "        \"projectId\": \"21ef6cbe-1f44-484f-bd83-9e225ddf376b\",\n" +
+         *                 "        \"enpId\": \"a4ae56ba-cff0-46dd-b7ec-5bfe83640ae1\",\n" +
+         *                 "        \"itemVOS\": [{\n" +
+         *                 "                \"type\": 1,\n" +
+         *                 "                \"sort\": 1,\n" +
+         *                 "                \"equCode\": null,\n" +
+         *                 "                \"equId\": null,\n" +
+         *                 "                \"equName\": null,\n" +
+         *                 "                \"spaceId\": \"09259ac9-733c-40ee-a2f8-c8e8c345b563\",\n" +
+         *                 "                \"spaceName\": \"A座-主楼-B1F-4号风机房\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "                \"projectId\": \"21ef6cbe-1f44-484f-bd83-9e225ddf376b\",\n" +
+         *                 "                \"enpId\": null,\n" +
+         *                 "                \"commandVOS\": [{\n" +
+         *                 "                        \"cmdName\": \"指令名称1\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 1\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称2\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 2\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称3\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 3\n" +
+         *                 "                    }\n" +
+         *                 "                ]\n" +
+         *                 "            },\n" +
+         *                 "            {\n" +
+         *                 "                \"type\": 2,\n" +
+         *                 "                \"sort\": 1,\n" +
+         *                 "                \"equCode\": \"RD335-10\",\n" +
+         *                 "                \"equId\": \"001d0ba5-4d3d-481f-8afe-adb38e543531\",\n" +
+         *                 "                \"equName\": \"16路数字硬盘刻录机\",\n" +
+         *                 "                \"spaceId\": null,\n" +
+         *                 "                \"spaceName\": \"A座-主楼-B1F-中控室\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "                \"projectId\": \"21ef6cbe-1f44-484f-bd83-9e225ddf376b\",\n" +
+         *                 "                \"enpId\": null,\n" +
+         *                 "                \"commandVOS\": [{\n" +
+         *                 "                        \"cmdName\": \"指令名称1\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 1\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称2\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 2\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称3\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 3\n" +
+         *                 "                    }\n" +
+         *                 "                ]\n" +
+         *                 "            },\n" +
+         *                 "            {\n" +
+         *                 "                \"type\": 1,\n" +
+         *                 "                \"sort\": 2,\n" +
+         *                 "                \"equCode\": null,\n" +
+         *                 "                \"equId\": null,\n" +
+         *                 "                \"equName\": null,\n" +
+         *                 "                \"spaceId\": \"0c90a26e-3d45-4364-952c-cadd27efaf3b\",\n" +
+         *                 "                \"spaceName\": \"A座-主楼-16F-强电间\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "                \"projectId\": \"21ef6cbe-1f44-484f-bd83-9e225ddf376b\",\n" +
+         *                 "                \"enpId\": null,\n" +
+         *                 "                \"commandVOS\": [{\n" +
+         *                 "                        \"cmdName\": \"指令名称1\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 1\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称2\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 2\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称3\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 3\n" +
+         *                 "                    }\n" +
+         *                 "                ]\n" +
+         *                 "            },\n" +
+         *                 "            {\n" +
+         *                 "                \"type\": 2,\n" +
+         *                 "                \"sort\": 2,\n" +
+         *                 "                \"equCode\": \"RD346-3\",\n" +
+         *                 "                \"equId\": \"00ace350-cc79-462b-a65c-67a747afaa66\",\n" +
+         *                 "                \"equName\": \"现场控制器\",\n" +
+         *                 "                \"spaceId\": null,\n" +
+         *                 "                \"spaceName\": \"A座-主楼-17F\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "                \"projectId\": \"21ef6cbe-1f44-484f-bd83-9e225ddf376b\",\n" +
+         *                 "                \"enpId\": null,\n" +
+         *                 "                \"commandVOS\": [{\n" +
+         *                 "                        \"cmdName\": \"指令名称1\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 1\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称2\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 2\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称3\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 3\n" +
+         *                 "                    }\n" +
+         *                 "                ]\n" +
+         *                 "            },\n" +
+         *                 "            {\n" +
+         *                 "                \"type\": 2,\n" +
+         *                 "                \"sort\": 3,\n" +
+         *                 "                \"equCode\": \"KT29-10\",\n" +
+         *                 "                \"equId\": \"00cec9a1-24fe-4ad1-a1e0-8c4bb9f8d58b\",\n" +
+         *                 "                \"equName\": \"中静压风管式VRV内机\",\n" +
+         *                 "                \"spaceId\": null,\n" +
+         *                 "                \"spaceName\": \"A座-主楼-11F-租户区域\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "                \"projectId\": \"21ef6cbe-1f44-484f-bd83-9e225ddf376b\",\n" +
+         *                 "                \"enpId\": null,\n" +
+         *                 "                \"commandVOS\": [{\n" +
+         *                 "                        \"cmdName\": \"指令名称1\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 1\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称2\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 2\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称3\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 3\n" +
+         *                 "                    }\n" +
+         *                 "                ]\n" +
+         *                 "            },\n" +
+         *                 "            {\n" +
+         *                 "                \"type\": 2,\n" +
+         *                 "                \"sort\": 4,\n" +
+         *                 "                \"equCode\": \"RD308-3\",\n" +
+         *                 "                \"equId\": \"00e6214c-dca2-4e2b-a145-827dcf2b2899\",\n" +
+         *                 "                \"equName\": \"彩色半球摄像机\",\n" +
+         *                 "                \"spaceId\": null,\n" +
+         *                 "                \"spaceName\": \"A座-主楼-5F\",\n" +
+         *                 "                \"planId\": \"b12fa878-c45f-4bb3-a93d-7a0096c2a619\",\n" +
+         *                 "                \"projectId\": \"21ef6cbe-1f44-484f-bd83-9e225ddf376b\",\n" +
+         *                 "                \"enpId\": null,\n" +
+         *                 "                \"commandVOS\": [{\n" +
+         *                 "                        \"cmdName\": \"指令名称1\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 1\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称2\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 2\n" +
+         *                 "                    },\n" +
+         *                 "                    {\n" +
+         *                 "                        \"cmdName\": \"指令名称3\",\n" +
+         *                 "                        \"cmdType\": 1,\n" +
+         *                 "                        \"defaultValue\": \"12\",\n" +
+         *                 "                        \"errorValue\": 20,\n" +
+         *                 "                        \"uploadType\": null,\n" +
+         *                 "                        \"minValue\": 10.0,\n" +
+         *                 "                        \"maxValue\": 15.0,\n" +
+         *                 "                        \"unit\": null,\n" +
+         *                 "                        \"required\": \"1\",\n" +
+         *                 "                        \"sort\": 3\n" +
+         *                 "                    }\n" +
+         *                 "                ]\n" +
+         *                 "            }\n" +
+         *                 "        ]\n" +
+         *                 "    },\n" +
+         *                 "    \"success\": 1\n" +
+         *                 "}\n" +
+         *                 "```";
+         *
+         */
+        // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
+
+//        String origin2 = " #### URL:lyws-inventory/storeroom/add1\n" +
+//                "#### 请求方式: POST\n" +
+//                "#### 负责人：童喜玲\n" +
+//                "#### 参数: \n" +
+//                "```\n" +
+//                "{\n" +
+//                "    //-----在原参数基础上新增采购所需信息\n" +
+//                "    \"purchaseApprove\": 0: 无须审批 1. 一级审批； 2： 二级审批-- -- -- -- -- - 数字类型,\n" +
+//                "    \"purchaseSign\": 采购签字： 0: 无需签字 1. 只需一级审批需要签字； 2： 只需二级审批需要签字； 3： 一级、 二级审批都需签字-- -- -- -- - 数字类型,\n" +
+//                "    \"purchase\": {\n" +
+//                "        \"first\": {\n" +
+//                "            -- -- -- - 一级审批 \"roleId\": [\"acd77036-cba6-4303-9c29-8ad3bb793ec1\"],\n" +
+//                "            \"userId\": [\"780a7240-652f-4983-835d-4a892a9c9be4\"]\n" +
+//                "        },\n" +
+//                "        \"second\": {\n" +
+//                "            -- -- -- --二级审批 \"roleId\": [\"acd77036-cba6-4303-9c29-8ad3bb793ec1\"],\n" +
+//                "            \"userId\": [\"780a7240-652f-4983-835d-4a892a9c9be4\"]\n" +
+//                "        },\n" +
+//                "        \"remind\": {\n" +
+//                "            -- -- -- - 审核通过提醒 \"roleId\": [\"acd77036-cba6-4303-9c29-8ad3bb793ec1\"],\n" +
+//                "            \"userId\": [\"780a7240-652f-4983-835d-4a892a9c9be4\"]\n" +
+//                "        }\n" +
+//                "    }\n" +
+//                "```\n" +
+//                "#### 返回值：\n" +
+//                "```\n" +
+//                "{\n" +
+//                "    \"code\": 200,\n" +
+//                "    \"msg\": \"success\",\n" +
+//                "    \"val\": \"7959dcd7-2a3d-4845-bdb5-c7cd2c951fb0\",\n" +
+//                "    \"success\": 1\n" +
+//                "}\n" +
+//                "``` ";
 
         // 系统关键字:   [   ]   {   }   "  :   ,   \n   #  ,     注释不要换行写.推荐写在参数后面,注释可以用// 或者 # ,后面可以写一些系统关键字,因为不会被记入括号匹配
         // 参数名称一定要加引号,然后写上冒号(均为英文),后面再写参数值和注释,参数名符合命名规范,是字符数字下划线
@@ -46,154 +463,45 @@ public class 转整个gitee的md文件到showdoc {
          *     前面的 "supplier":{  和   后面的  },   尽量都复制就行,然后最后出来的结果不要复制这些
          */
 
-        // 自己往文件最上头加上 #### 标题:报单统计-问题类型分析 这块东西吧,#最好四个以内,然后1个到四个#吧.
-
-
-        String origin = "#### URL:http://lyws-repair/repair/history\n" +
+        String origin = "#### URL: http://lyws-energy/energySetUp/pricingPlan/saveOfupdate\n" +
                 "#### 请求方式: POST\n" +
+                "#### 负责人：廖扬帆\n" +
                 "#### 参数: \n" +
                 "```\n" +
+                "更新\n" +
                 "{\n" +
-                "\t\"objectId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\"//跟原来一样无变动\n" +
-                "}\n" +
-                "```\n" +
-                "#### 注意事项\n" +
-                "```\n" +
-                "\"nodeCode\": \"changeService\",\n" +
+                "    \"objectId\" : \"\" //方案id[String](必传)\n" +
+                "\t\"planName\" : \"电价1.1\", //计价方案名称  [String]\n" +
+                "\t\"unitPrice\" : null,  //单价 [Double]\n" +
+                "\t\"peakPrice\" : 1,     //尖峰单价 [Double]\n" +
+                "\t\"peakSectionPrice\" : 2,  //峰段单价 [Double]\n" +
+                "\t\"averagePrice\": 3,    //平段单价 [Double]\n" +
+                "\t\"lowValleyPrice\" : 4, //谷段单价 [Double]\n" +
+                "\n" +
+                "\t\"planName\" : \"电价1.1\", //计价方案名称  [String]\n" +
+                "\t\"planType\" : 2,  //计价方案类型(1：单一/2：阶梯/3：峰谷) [int]\n" +
+                "\t\"unitPrice\" : null,  //单价 [Double]\n" +
+                "\t\"peakPrice\" : 1,     //尖峰单价 [Double]\n" +
+                "\t\"peakSectionPrice\" : 2,  //峰段单价 [Double]\n" +
+                "\t\"averagePrice\": 3,    //平段单价 [Double]\n" +
+                "\t\"lowValleyPrice\" : 4, //谷段单价 [Double]\n" +
+                "\t\"meterType\" : 1,    //能源类型(1：电/2：水/3：热能/4：热能) [int] \n" +
+                "\t\"projectId\" : \"b9de0652-7e15-4178-bdb2-c9900b51496e\" //项目id [String]\n" +
+                "\n" +
+                "}" +
+                "\n" +
                 "```\n" +
                 "#### 返回值：\n" +
                 "```\n" +
                 "{\n" +
-                "\t\"code\": 200,\n" +
-                "\t\"msg\": \"success\",\n" +
-                "\t\"val\": {\n" +
-                "                // 新增属性\n" +
-                "                \"changeUserName\":\"\"//提交人名称\n" +
-                "                \"changeCause\":\"\"//变更原因\n" +
-                "                // 原属性不变\n" +
-                "                \"serviceType\": 0,\n" +
-                "\t\t\"companyName\": \"爱奇艺\",\n" +
-                "\t\t\"focus\": 0,\n" +
-                "\t\t\"equSys\": \"电气系统-照明配电箱系统-三级配电柜/箱\",\n" +
-                "\t\t\"contactTel\": \"13209097865\",\n" +
-                "\t\t\"specialtyIds\": \"b24e2b39-ea5c-46cf-b0ef-6f10d3bc2219\",\n" +
-                "\t\t\"number\": \"SDKJBX210301007\",\n" +
-                "\t\t\"systemName\": null,\n" +
-                "\t\t\"arrivalTime\": 1614601785000,\n" +
-                "\t\t\"contact\": \"王毅\",\n" +
-                "\t\t\"record\": 0,\n" +
-                "\t\t\"completeSign\": 1,\n" +
-                "\t\t\"commentSignPic\": \"http://ifreedev.oss-cn-hangzhou.aliyuncs.com/00db1171-9e2a-4869-aae6-ab2e534837cb.jpg\",\n" +
-                "\t\t\"specialtyNames\": \"保安组\",\n" +
-                "\t\t\"planStartTime\": null,\n" +
-                "\t\t\"contactId\": \"e9fa12c0-5b0c-46f3-a175-bdff95dc1533\",\n" +
-                "\t\t\"showUser\": [{\n" +
-                "\t\t\t\"mobileNum\": \"15215318626\",\n" +
-                "\t\t\t\"profilePhoto\": \"http://ifreedev.oss-cn-hangzhou.aliyuncs.com/358895e1-c941-49ca-b558-8f1e26b62ee7.jpg\",\n" +
-                "\t\t\t\"userName\": \"栗亚琪\",\n" +
-                "\t\t\t\"objectId\": \"26c78534-2243-42de-b6c0-ccfa5409eebe\"\n" +
-                "\t\t}],\n" +
-                "\t\t\"commentDetail\": \"快\",\n" +
-                "\t\t\"history\": [{\n" +
-                "\t\t\t\"createTime\": 1614570224000,\n" +
-                "\t\t\t\"historyId\": \"fd990b99-42e8-4e9e-b373-b9e6e7a9aced\",\n" +
-                "\t\t\t\"nodeCode\": \"repair\",\n" +
-                "\t\t\t\"index\": 1,\n" +
-                "\t\t\t\"detail\": \"工单由栗亚琪报修成功\",\n" +
-                "\t\t\t\"title\": \"已报修\"\n" +
-                "\t\t}, {\n" +
-                "\t\t\t\"createTime\": 1614570261000,\n" +
-                "\t\t\t\"historyId\": \"d462c0e5-82b5-4a75-abb2-38397e0b3602\",\n" +
-                "\t\t\t\"nodeCode\": \"assign\",\n" +
-                "\t\t\t\"index\": 2,\n" +
-                "\t\t\t\"detail\": \"栗亚琪已指派给栗亚琪\",\n" +
-                "\t\t\t\"title\": \"已指派\"\n" +
-                "\t\t}, {\n" +
-                "\t\t\t\"createTime\": 1614570269000,\n" +
-                "\t\t\t\"historyId\": \"35230e90-0e57-4b1d-a839-ec19ba38bc4d\",\n" +
-                "\t\t\t\"nodeCode\": \"accept\",\n" +
-                "\t\t\t\"index\": 3,\n" +
-                "\t\t\t\"detail\": \"栗亚琪已成功接单\",\n" +
-                "\t\t\t\"title\": \"已接单\"\n" +
-                "\t\t}, {\n" +
-                "\t\t\t\"createTime\": 1614570275000,\n" +
-                "\t\t\t\"historyId\": \"9907f26b-d58a-48c0-887d-7f3269e05363\",\n" +
-                "\t\t\t\"nodeCode\": \"showup\",\n" +
-                "\t\t\t\"index\": 4,\n" +
-                "\t\t\t\"detail\": \"栗亚琪已到场\",\n" +
-                "\t\t\t\"title\": \"已到场\"\n" +
-                "\t\t}, {\n" +
-                "\t\t\t\"createTime\": 1614570297000,\n" +
-                "\t\t\t\"historyId\": \"9b08f81b-058f-41ee-906b-4e2e680b744c\",\n" +
-                "\t\t\t\"nodeCode\": \"finish\",\n" +
-                "\t\t\t\"index\": 5,\n" +
-                "\t\t\t\"detail\": \"栗亚琪提交完工信息\",\n" +
-                "\t\t\t\"title\": \"已完工\"\n" +
-                "\t\t}, {\n" +
-                "\t\t\t\"createTime\": 1614570311000,\n" +
-                "\t\t\t\"historyId\": \"6f613477-0145-4910-b664-eb41a4afae05\",\n" +
-                "\t\t\t\"nodeCode\": \"appraise\",\n" +
-                "\t\t\t\"index\": 6,\n" +
-                "\t\t\t\"detail\": \"栗亚琪已完成评价\",\n" +
-                "\t\t\t\"title\": \"已评价\"\n" +
-                "\t\t}, {\n" +
-                "\t\t\t\"createTime\": 1614601785000,\n" +
-                "\t\t\t\"historyId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
-                "\t\t\t\"nodeCode\": \"change\",\n" +
-                "\t\t\t\"index\": 99,\n" +
-                "\t\t\t\"detail\": \"栗亚琪变更了工单信息\",\n" +
-                "\t\t\t\"title\": \"已变更\"\n" +
-                "\t\t}],\n" +
-                "\t\t\"commentStatus\": 1,\n" +
-                "\t\t\"tags\": [],\n" +
-                "\t\t\"preNode\": null,\n" +
-                "\t\t\"changeMajor\": 1,\n" +
-                "\t\t\"faultId\": null,\n" +
-                "\t\t\"position\": \"山东科技大学城\",\n" +
-                "\t\t\"detail\": \"去\",\n" +
-                "\t\t\"nodeId\": null,\n" +
-                "\t\t\"currentPreNode\": null,\n" +
-                "\t\t\"repairTel\": \"15215318626\",\n" +
-                "\t\t\"spaceType\": \"0\",\n" +
-                "\t\t\"commentUserName\": \"栗亚琪\",\n" +
-                "\t\t\"originaleEquId\": \"a3f97cba-1710-447f-985e-cf8a27c4f68a\",\n" +
-                "\t\t\n" +
-                "\t\t\"title\": \"\",\n" +
-                "\t\t\"button\": [],\n" +
-                "\t\t\"specialtyName\": null,\n" +
-                "\t\t\"etaStatus\": 2,\n" +
-                "\t\t\"operResult\": null,\n" +
-                "\t\t\"definitionProcessId\": \"0c04891c-5fc3-474a-99e1-420a4e1fd195\",\n" +
-                "\t\t\"instanceProcessId\": null,\n" +
-                "\t\t\"urgency\": 0,\n" +
-                "\t\t\"userIds\": [{\n" +
-                "\t\t\t\"mobileNum\": \"15215318626\",\n" +
-                "\t\t\t\"profilePhoto\": \"http://ifreedev.oss-cn-hangzhou.aliyuncs.com/358895e1-c941-49ca-b558-8f1e26b62ee7.jpg\",\n" +
-                "\t\t\t\"userName\": \"栗亚琪\",\n" +
-                "\t\t\t\"objectId\": \"26c78534-2243-42de-b6c0-ccfa5409eebe\"\n" +
-                "\t\t}],\n" +
-                "\t\t\"isVisit\": 0,\n" +
-                "\t\t\"serviceId\": \"d2c7aec9-88d0-4a82-ad10-1f8ef11c032c\",\n" +
-                "\t\t\"chargeName\": \"\",\n" +
-                "\t\t\"selectExecutive\": 0,\n" +
-                "\t\t\"objectId\": \"9e0bed80-07e6-42b5-b2e0-9d30f68fb500\",\n" +
-                "\t\t\"takePhoto\": 0,\n" +
-                "\t\t\"serviceName\": \"小波服务类型\",\n" +
-                "\t\t\"picture\": [],\n" +
-                "\t\t\"faultName\": null,\n" +
-                "\t\t\"timeOut\": \"0\",\n" +
-                "\t\t\"evaluateSign\": 1,\n" +
-                "\t\t\"changeSpecialty\": 0,\n" +
-                "\t\t\"createTime\": 1614570223000,\n" +
-                "\t\t\"teamwork\": [],\n" +
-                "\t\t\"chargeId\": \"\",\n" +
-                "\t\t\"repairUser\": \"栗亚琪\",\n" +
-                "\t\t\"isCharge\": 0,\n" +
-                "\t\t\"buildingAreaId\": \"0b3960af-1539-4b73-8e09-9c5e0135b5ff\"\n" +
-                "\t},\n" +
-                "\t\"success\": 1\n" +
+                "    \"code\": 200,\n" +
+                "    \"msg\": \"success\",\n" +
+                "    \"val\": \"xxxxxxxxxxxxxxxxxxxxxx\",\n" +
+                "    \"success\": 1\n" +
                 "}\n" +
-                "```\n";
+                "```";
+
+
 
 
         origin = origin + "\n";
@@ -230,7 +538,16 @@ public class 转整个gitee的md文件到showdoc {
         origin = origin.replace(" ```", "```");
 
         if (origin.contains("# 请求方式")) {
+
             System.out.println(toWholeShowDoc(origin));
+//            now = System.currentTimeMillis();
+//            System.out.println(toWholeShowDoc(origin));
+//            for (int i=0;i<10000;i++){
+//                System.out.println(toWholeShowDoc(origin));
+//            }
+//            System.out.println("====================================执行一万次这个(处理文本的)花了多少毫秒"+(System.currentTimeMillis()-now));
+
+
             if (!origin.contains("# 返回值") && !origin.contains("# 返回示例") && !origin.contains("# 响应结果")) {
                 origin = origin + " \n\n#### 返回值：\n" +
                         "```\n" +
@@ -246,7 +563,12 @@ public class 转整个gitee的md文件到showdoc {
                         "    暂无\n" +
                         "```";
             }
+            now = System.currentTimeMillis();
             System.out.println(toWholeShowDoc2(origin));
+            for (int i=0;i<10000;i++){
+                System.out.println(toWholeShowDoc2(origin));
+            }
+            System.out.println("====================================执行一万次这个(处理文本的)花了多少毫秒"+(System.currentTimeMillis()-now));
         } else {
             throw new Exception("检查下这个接口文档的请求方式在哪");
         }
@@ -299,7 +621,7 @@ public class 转整个gitee的md文件到showdoc {
         String part01 = partsList.get(0);
         String part02 = partsList.get(1);
 //        if (origin)
-        String param1 = part01.substring(part01.indexOf("```json"), part01.lastIndexOf("```"));
+        String param1 = part01.substring(part01.indexOf("```json"), part01.lastIndexOf("```") + 3);
 //        System.out.println(param1+"\n\n=======================================\n\n");
         String param2 = part02.substring(part02.indexOf("```"), part02.lastIndexOf("`") + 1);
 //        System.out.println(param2);
@@ -312,11 +634,14 @@ public class 转整个gitee的md文件到showdoc {
         // 裁出一段子字符串应该是比正则的匹配要快的
         // 标题的正则   (.*里头是标题)
         String titleExp = "#*\\s*(标题|title)(\\s*:\\s*)(.*)(\\n)";
-        // 请求url的正则 #*\s*(url|URL|Url)(\s*:\s*)(.*)(\n)
+        // 请求url的正则 #*\s*(url|URL|Url)(\s*:\s*)(.*)(\n)  (\s*-\s*请求地址\s*:\s*)(\n*)(```.*\n)(.*\n)(```\s*?\n)
         String urlExp = "(\\s*-\\s*请求地址\\s*:\\s*)(\\n*)(```.*\\n)(.*\\n)(```\\s*?\\n)";
+        // url 备用正则 (\s*-\s*请求地址\s*:\s*)(\n*)(.*\n)
+        String urlExp2 = "(\\s*-\\s*请求地址\\s*:\\s*)(\\n*)(.*\\n)";
         // 请求方式的正则
         String postExp = "(\\x20*-\\s*请求方式\\s*:\\s*)(\\n*)(```.*\\n)(.*\\n)(```\\x20*?)";
-
+        // 请求方式的备用正则 (\x20*-\s*请求方式\s*:\s*)(\n*)(.*\n)
+        String postExp2 = "(\\x20*-\\s*请求方式\\s*:\\s*)(\\n*)(.*\\n)";
         Pattern pattern = Pattern.compile(titleExp);
         Matcher matcher = pattern.matcher(origin);
         if (matcher.find()) {
@@ -329,6 +654,12 @@ public class 转整个gitee的md文件到showdoc {
         matcher = pattern.matcher(origin);
         if (matcher.find()) {
             res.append(matcher.group(4) + "    `\n");
+        }else{
+            pattern = Pattern.compile(urlExp2);
+            matcher = pattern.matcher(origin);
+            if (matcher.find()){
+                res.append(matcher.group(3) + "    `\n");
+            }
         }
         res.append("\n" +
                 "##### 请求方式\n" +
@@ -338,6 +669,12 @@ public class 转整个gitee的md文件到showdoc {
         matcher = pattern.matcher(origin);
         if (matcher.find()) {
             res.append(matcher.group(4) + "  \n");
+        }else{
+            pattern = Pattern.compile(postExp2);
+            matcher = pattern.matcher(origin);
+            if (matcher.find()){
+                res.append(matcher.group(3) + "  \n");
+            }
         }
         res.append("\n" +
                 "##### 参数\n" +
@@ -475,7 +812,8 @@ public class 转整个gitee的md文件到showdoc {
         // 变量前面的退格数量
         StringBuilder sb2 = new StringBuilder();
         StringBuilder explain = new StringBuilder();
-
+        StringBuilder wholeLine = new StringBuilder();
+        List<Integer> enterNum = new ArrayList<>();
         // 前面的空格到参数名位置,有个地方要用到.
         StringBuilder sb3 = new StringBuilder();
 
@@ -483,6 +821,7 @@ public class 转整个gitee的md文件到showdoc {
 //        (\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
 //        (^\x20\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
         // 更改,必须以空格开头,否则会匹配到换行符   (还是用原来的,但是上下相隔4个空字符才算孩子),其实两个就够了,因为一般也就多出一个\n,或者可以折中改为3个
+//     (\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
         String regExp = "(\\s*)(\".*?)([0-9a-zA-Z]*)(\".*?:.*?\\s*?)(.*)(\\s*?.*?)\n";
         Pattern pattern = Pattern.compile(regExp);
         Matcher matcher = pattern.matcher(origin);
@@ -494,16 +833,21 @@ public class 转整个gitee的md文件到showdoc {
             // 描述文本里面经常有逗号,不常见#号,用#号好了
             // 刚刚发现的错误,#会被当做注释符号,那还是用其他的好了.
             explain.append(matcher.group(5)).append("&");
+            wholeLine.append(matcher.group(0)).append("SplitTagYYP001");
+            // 匹配到的这串文本在原文本中所处的下标
+            enterNum.add(matcher.end()-2);
+//            System.out.println("  +matcher.end() "+matcher.end());
         }
         String[] sHeadArr = sb3.toString().split(",");
         String[] sArr = changeUnderToUpperLetter(sb.toString()).split(",");
         String[] spaceArr = sb2.toString().split(",");
         String[] explainArr = explain.toString().split("&");
+        String[] wholeLineArr = wholeLine.toString().split("SplitTagYYP001");
 //        boolean isChild = false;
         // 标记上次的缩进个数  刚开始初始化应该用
         int spaceNum = 0;
         if (sArr.length > 0) {
-            spaceNum = spaceArr[0].length();
+            spaceNum = spaceArr[0].replace("\t", "    ").length();
         }
         // 一般来说缩进就是4个空格
         int tabSize = 4;
@@ -518,7 +862,7 @@ public class 转整个gitee的md文件到showdoc {
             // 不同层级的objectId给区分开来,同层级的不允许重复出现
 //            这个是用于判断是否该写入markdown表格的的key
             String key = sArr[i] + "" + spaceArr[i].length();
-
+            String nowSpaceLen = spaceArr[i].replace("\t", "    ");
             // 如果这个参数是前面有个对象或者对象数组,也就是这个参数对象或者对象数组的孩子,那么
             // 用来解决多对象啊或者多对象数组的问题,考虑以后暂时先不解决,感觉一般都是同表的不同type,其实没必要重复加字段
 //            if (isChild) {
@@ -538,9 +882,9 @@ public class 转整个gitee的md文件到showdoc {
 //                flagStr = "";
 //            }
             // spaceNum是全局记录用的,spaceLen是当前的
-            int spaceLen = spaceArr[i].replace("\t", "    ").length();
+            int spaceLen = nowSpaceLen.length();
 //            if (spaceArr[i].length() >= 8 && ("{".equals(explainArr[i - 1].replace(" ", "")) || "[".equals(explainArr[i - 1].replace(" ", "")))) {
-            if (spaceArr[i].length() >= 4) {
+            if (nowSpaceLen.length() >= 0) {
                 // 对象的孩子退四格
                 // 对象数组的孩子退格   ,  因为\n的干扰,所以用当前的减去记录的值大于2(或者大于1就行,大于一可以避免有些退格符只有两个的情况
                 // 但是鉴于一般都是缩进四个空格,而且万一啥时候多按了个空格也会出错,还是大于2好了,大于3也行,但是如果他少按个空格也会错,)
@@ -559,8 +903,8 @@ public class 转整个gitee的md文件到showdoc {
                     // 如果两个对象内有两个相同参数,那么indexOf就会取到比较先的那个,这个好像不大准,取最后一个什么的也有隐患.
                     // 主要是相同变量名相同缩进的变量这个有些多
 //                    int nowIndex =
-                    int substrEnd = origin.lastIndexOf(sHeadArr[i]);
-                    int substrStart = origin.indexOf(sHeadArr[i - 1]);
+                    int substrEnd = origin.indexOf(sHeadArr[i],enterNum.get(i)-wholeLineArr[i].length());
+                    int substrStart = origin.indexOf(sHeadArr[i - 1],enterNum.get(i-1)-wholeLineArr[i-1].length());
                     while (substrStart < substrEnd) {
                         int tmp = origin.indexOf(sHeadArr[i - 1], substrStart + 1);
                         if (tmp != -1 && tmp < substrEnd) {
@@ -570,15 +914,37 @@ public class 转整个gitee的md文件到showdoc {
                         }
 
                     }
+
+//                    int substrEnd2 = origin.indexOf(wholeLineArr[i] + wholeLineArr[i + 1]);
+//                    int substrStart2 = origin.indexOf(wholeLineArr[i - 2] + wholeLineArr[i - 1]) + (wholeLineArr[i - 2] + wholeLineArr[i - 1]).length() - 1;
                     String bt = " 为了避免符号前后没东西  " + origin.substring(substrStart, substrEnd) + " 为了避免符号前后没东西  ";
+//                    \}\s*,\s*\n\s*\{
+//                    两个同级对象上面一个对象有个子对象,然后会出现这种情况
+//                    "required": "1",
+//                            "sort": 3
+//                }
+//                ]
+//            },
+//            {
+//                "type": 2,
+//                    "sort": 4,
                     // 偶尔层级会很多
                     if (bt.split("\n").length > 8) {
 //                        throw new Exception("是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个");
                         System.out.println("##################是否有对象数组且里面的对象都字段相同的例子?麻烦把对象数组里面的对象只留下一个#########################");
                     }
                     String[] btArr = bt.split("}");
+
+                    String pRightCommaLEftRegExp = "\\}\\s*,\\s*\\n\\s*\\{";
+                    Pattern pRightCommaLEft = Pattern.compile(pRightCommaLEftRegExp);
+                    Matcher mRightCommaLEft = pRightCommaLEft.matcher(bt);
+
+
 //                    if (bt)
                     int backspaceNum = btArr.length - 1;
+                    if (mRightCommaLEft.find()) {
+                        backspaceNum = backspaceNum - 1;
+                    }
                     for (int l = 0; l < backspaceNum; l++) {
                         isChildStack.pop();
                     }
@@ -593,6 +959,7 @@ public class 转整个gitee的md文件到showdoc {
             }
             plusNum = isChildStack.size();
             if (variableName.contains(key)) {
+                // 重复的虽然不会进入表格,但是这里之前的上面的判断是否升级降级还是会走的
                 continue forOne;
 //                if (explainArr[i-1].replace(" ","").equals("[") || explainArr[i-1].replace(" ","").equals("{")){
 //                    System.out.println("一般带前面英文名儿且匹配到有变量名的,然后是{开头,一般都是不同的对象,应该要让他计入参数");
@@ -606,7 +973,7 @@ public class 转整个gitee的md文件到showdoc {
             // 一个制表符是4个空格,一般来说第一级是4个空格,第二级是12个空格,第三级是20个空格,这里我选/8,每级多个+号
 //            暂时没有遇到4,8,12的情况
             // 对象他的孩子是退4个空格,对象数组他的孩子是退8个空格,这里需要再次判断
-            int spaceCount = (spaceArr[i].replace("\t", "    ").length()) / 8;
+            int spaceCount = (nowSpaceLen.length()) / 8;
 
             for (int j = 0; j < plusNum; j++) {
                 res.append("+");
@@ -649,9 +1016,14 @@ public class 转整个gitee的md文件到showdoc {
             // 找他的字段类型,偶尔会有些接口文档的json里面有一些字段类型的信息,可以取出来用,不用手动复制粘贴
             String fieldType = searchFieldType(explainArr[i]);
             String fieldTypePure = fieldType.replace(" ", "").replace("|", "");
+            String fieldTypePureUpper = fieldTypePure.substring(0,1).toUpperCase() + fieldTypePure.substring(1);
             // 字段类型默认就是小写吧,一般情况下也都是小写,除非当时写接口的人切换到英文输入法再切大写弄成首字母大写,一般都是小写的.不去做其他判断了
             explainStr = explainStr.replace("[" + fieldTypePure + "]", "").replace("(" + fieldTypePure + ")", "")
-                    .replace("（" + fieldTypePure + "）", "").replace(fieldTypePure, "");
+                    .replace("（" + fieldTypePure + "）", "").replace(fieldTypePure, "")
+                    .replace("[" + fieldTypePureUpper + "]", "").replace("(" + fieldTypePureUpper + ")", "")
+                    .replace("（" + fieldTypePureUpper + "）", "").replace(fieldTypePureUpper, "")
+//                    就BigDecimal是有俩驼峰的
+                    .replace("BigDecimal","");
             res.append(fieldType);
             // 可以去掉一些空值,影响观感,有值的留着好了,做参考,  然后一些只有[  或者 {  这种就是数组或者一个对象
 
@@ -668,6 +1040,10 @@ public class 转整个gitee的md文件到showdoc {
             if (explainStr.contains("#")) {
                 explainStr = explainStr.substring(explainStr.indexOf("#") + 1);
             }
+            // 简单判断一下,童喜玲写注释的方式是很多----------------这里是注释
+            if (explainStr.contains("---")) {
+                explainStr = explainStr.substring(explainStr.lastIndexOf("---") + 3);
+            }
             if ("{".equals(explainStr.replace(" ", ""))) {
                 explainStr = "是个对象";
             } else if ("[".equals(explainStr.replace(" ", ""))) {
@@ -683,7 +1059,7 @@ public class 转整个gitee的md文件到showdoc {
         if (resStr.contains("+success")) {
             // 一般都是返回高级的缩进出问题,相同层级同名字段过多会出现这个问题,但是概率小,如果出现就抛异常
             System.out.println("####################### 缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下." +
-                    "或者把json放进vscode格式化一下再放回去执行一下这个工具");
+                    "或者把json放进vscode格式化一下再放回去执行一下这个工具,或者检查一下是否有花括号漏写了");
 //            throw new Exception("缩进可能出问题了,检查一下层级(也就是字段名前面的+号个数是否正确),应该就几个,可以手动更改一下.");
         }
         return resStr;
@@ -712,7 +1088,13 @@ public class 转整个gitee的md文件到showdoc {
             res = " | boolean ";
         } else if (explainStr.contains("long") || explainStr.contains("Long")) {
             res = " | long ";
-        } else if (explainStr.contains("decimal") || explainStr.contains("Decimal")) {
+        }else if (explainStr.contains("bigdecimal") || explainStr.contains("BigDecimal")) {
+            res = " | bigdecimal ";
+        }
+        else if (explainStr.contains("Double") || explainStr.contains("Double")) {
+            res = " | double ";
+        }
+        else if (explainStr.contains("decimal") || explainStr.contains("Decimal")) {
             res = " | decimal ";
         }
         return res;
