@@ -463,45 +463,127 @@ public class 转整个gitee的md文件到showdoc {
          *     前面的 "supplier":{  和   后面的  },   尽量都复制就行,然后最后出来的结果不要复制这些
          */
 
-        String origin = "#### URL: http://lyws-energy/energySetUp/pricingPlan/saveOfupdate\n" +
-                "#### 请求方式: POST\n" +
+        String origin = "#### URL: http://lyws-energy/energySetUp/meteringClassificaTree\n" +
+                "#### 请求方式: GET\n" +
                 "#### 负责人：廖扬帆\n" +
                 "#### 参数: \n" +
                 "```\n" +
-                "更新\n" +
-                "{\n" +
-                "    \"objectId\" : \"\" //方案id[String](必传)\n" +
-                "\t\"planName\" : \"电价1.1\", //计价方案名称  [String]\n" +
-                "\t\"unitPrice\" : null,  //单价 [Double]\n" +
-                "\t\"peakPrice\" : 1,     //尖峰单价 [Double]\n" +
-                "\t\"peakSectionPrice\" : 2,  //峰段单价 [Double]\n" +
-                "\t\"averagePrice\": 3,    //平段单价 [Double]\n" +
-                "\t\"lowValleyPrice\" : 4, //谷段单价 [Double]\n" +
-                "\n" +
-                "\t\"planName\" : \"电价1.1\", //计价方案名称  [String]\n" +
-                "\t\"planType\" : 2,  //计价方案类型(1：单一/2：阶梯/3：峰谷) [int]\n" +
-                "\t\"unitPrice\" : null,  //单价 [Double]\n" +
-                "\t\"peakPrice\" : 1,     //尖峰单价 [Double]\n" +
-                "\t\"peakSectionPrice\" : 2,  //峰段单价 [Double]\n" +
-                "\t\"averagePrice\": 3,    //平段单价 [Double]\n" +
-                "\t\"lowValleyPrice\" : 4, //谷段单价 [Double]\n" +
-                "\t\"meterType\" : 1,    //能源类型(1：电/2：水/3：热能/4：热能) [int] \n" +
-                "\t\"projectId\" : \"b9de0652-7e15-4178-bdb2-c9900b51496e\" //项目id [String]\n" +
-                "\n" +
-                "}" +
-                "\n" +
+                "projectId= \"\"  //项目id[Sting](必传),\n" +
+                "meterType = \"\"  //能源类型(1：电/2：水/3：热能/4：热能)[int](必传)\n" +
                 "```\n" +
                 "#### 返回值：\n" +
                 "```\n" +
                 "{\n" +
                 "    \"code\": 200,\n" +
                 "    \"msg\": \"success\",\n" +
-                "    \"val\": \"xxxxxxxxxxxxxxxxxxxxxx\",\n" +
+                "    \"val\": [\n" +
+                "        {\n" +
+                "            \"objectId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",  \n" +
+                "            \"categoryName\": \"用电总量\",  //分类名称\n" +
+                "            \"categoryCode\": \"E100\",     //分类编码\n" +
+                "            \"parentId\": \"\",             //父级id\n" +
+                "            \"categoryLevel\": null,      //分类层级\n" +
+                "            \"meterType\": 1,             //能源类型(1：电/2：水/3：热能/4：热能) \n" +
+                "            \"selectStatus\": 1,          //勾选状态: 1选中,0没选中\n" +
+                "            \"meterSystemCategorys\": [\n" +
+                "                {\n" +
+                "                    \"objectId\": \"032d25fe-8c78-4b13-a422-67172fee3924\",\n" +
+                "                    \"categoryName\": \"戴聪从\",\n" +
+                "                    \"categoryCode\": \"DCC\",\n" +
+                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
+                "                    \"categoryLevel\": null,\n" +
+                "                    \"meterType\": 1,\n" +
+                "                    \"selectStatus\": 1,\n" +
+                "                    \"meterSystemCategorys\": [\n" +
+                "                        {\n" +
+                "                            \"objectId\": \"7a40a7fd-4eca-4caa-87d9-1079609cb6d0\",\n" +
+                "                            \"categoryName\": \"戴聪从1\",\n" +
+                "                            \"categoryCode\": \"DGCV\",\n" +
+                "                            \"parentId\": \"032d25fe-8c78-4b13-a422-67172fee3924\",\n" +
+                "                            \"categoryLevel\": null,\n" +
+                "                            \"meterType\": 1,\n" +
+                "                            \"selectStatus\": 0,\n" +
+                "                            \"meterSystemCategorys\": [\n" +
+                "                                {\n" +
+                "                                    \"objectId\": \"0c20ed42-2e89-4cdf-a2f1-998d5492b99a\",\n" +
+                "                                    \"categoryName\": \"戴聪从2\",\n" +
+                "                                    \"categoryCode\": \"JHGB\",\n" +
+                "                                    \"parentId\": \"7a40a7fd-4eca-4caa-87d9-1079609cb6d0\",\n" +
+                "                                    \"categoryLevel\": null,\n" +
+                "                                    \"meterType\": 1,\n" +
+                "                                    \"selectStatus\": 0,\n" +
+                "                                    \"meterSystemCategorys\": []\n" +
+                "                                }\n" +
+                "                            ]\n" +
+                "                        }\n" +
+                "                    ]\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"objectId\": \"0e4588c9-6297-4d97-9fd3-2060dd6be59c\",\n" +
+                "                    \"categoryName\": \"廖杨帆用电\",\n" +
+                "                    \"categoryCode\": \"LYF\",\n" +
+                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
+                "                    \"categoryLevel\": null,\n" +
+                "                    \"meterType\": 1,\n" +
+                "                    \"selectStatus\": 0,\n" +
+                "                    \"meterSystemCategorys\": []\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"objectId\": \"4bda20eb-31c3-49cf-a9bb-af540256b447\",\n" +
+                "                    \"categoryName\": \"分摊用电\",\n" +
+                "                    \"categoryCode\": \"FTYD\",\n" +
+                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
+                "                    \"categoryLevel\": null,\n" +
+                "                    \"meterType\": 1,\n" +
+                "                    \"selectStatus\": 0,\n" +
+                "                    \"meterSystemCategorys\": []\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"objectId\": \"54164c1b-81e9-43ad-8619-489b3c428592\",\n" +
+                "                    \"categoryName\": \"租户用电\",\n" +
+                "                    \"categoryCode\": \"E130\",\n" +
+                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
+                "                    \"categoryLevel\": null,\n" +
+                "                    \"meterType\": 1,\n" +
+                "                    \"selectStatus\": 1,\n" +
+                "                    \"meterSystemCategorys\": []\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"objectId\": \"7c54ce9c-cb78-4b84-8e2e-a784d639c862\",\n" +
+                "                    \"categoryName\": \"公区用电\",\n" +
+                "                    \"categoryCode\": \"GQYD\",\n" +
+                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
+                "                    \"categoryLevel\": null,\n" +
+                "                    \"meterType\": 1,\n" +
+                "                    \"selectStatus\": 0,\n" +
+                "                    \"meterSystemCategorys\": []\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"objectId\": \"ed52e8ce-8f0b-4010-b882-9b53e191897b\",\n" +
+                "                    \"categoryName\": \"租区用电\",\n" +
+                "                    \"categoryCode\": \"ZQYD\",\n" +
+                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
+                "                    \"categoryLevel\": null,\n" +
+                "                    \"meterType\": null,\n" +
+                "                    \"selectStatus\": 0,\n" +
+                "                    \"meterSystemCategorys\": []\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"objectId\": \"fa409edf-1c14-4c77-a081-b1328064cb7f\",\n" +
+                "                    \"categoryName\": \"马慧翔用电\",\n" +
+                "                    \"categoryCode\": \"MJHBV\",\n" +
+                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
+                "                    \"categoryLevel\": null,\n" +
+                "                    \"meterType\": 1,\n" +
+                "                    \"selectStatus\": 1,\n" +
+                "                    \"meterSystemCategorys\": []\n" +
+                "                }\n" +
+                "            ]\n" +
+                "        }\n" +
+                "    ],\n" +
                 "    \"success\": 1\n" +
                 "}\n" +
                 "```";
-
-
 
 
         origin = origin + "\n";
