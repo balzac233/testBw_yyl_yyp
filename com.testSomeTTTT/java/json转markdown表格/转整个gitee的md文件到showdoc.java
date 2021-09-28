@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class 转整个gitee的md文件到showdoc {
 
     //    private static Set<String> isRequired = new HashSet<>(Arrays.asList("非必传"));
-    private static List<String> notRequired = Arrays.asList("非必传", "不必传输", "不必传", "可选", "选填");
+    private static List<String> notRequired = Arrays.asList("非必传", "不必传输", "不必传", "可选", "选填","非必填","不用填");
     private static List<String> isRequired = Arrays.asList("必传", "必填", "必须");
 
     public static void main(String[] args) throws Exception {
@@ -463,124 +463,42 @@ public class 转整个gitee的md文件到showdoc {
          *     前面的 "supplier":{  和   后面的  },   尽量都复制就行,然后最后出来的结果不要复制这些
          */
 
-        String origin = "#### URL: http://lyws-energy/energySetUp/meteringClassificaTree\n" +
-                "#### 请求方式: GET\n" +
-                "#### 负责人：廖扬帆\n" +
-                "#### 参数: \n" +
-                "```\n" +
-                "projectId= \"\"  //项目id[Sting](必传),\n" +
-                "meterType = \"\"  //能源类型(1：电/2：水/3：热能/4：热能)[int](必传)\n" +
-                "```\n" +
-                "#### 返回值：\n" +
-                "```\n" +
+        String origin = "- 请求地址: /lyws-inspect/plan/planList\n" +
+                "- 请求方式: post\n" +
+                "- 请求参数:\n" +
+                "\n" +
+                "```json\n" +
                 "{\n" +
-                "    \"code\": 200,\n" +
+                "    \"lineId\":\"6f285c48-9149-4879-a290-db710cfdda2f\", // 线路id\n" +
+                "    \"pageNum\":\"1\", // 当前页\n" +
+                "    \"pageSize\":\"10\" // 每页展示的数据量\n" +
+                "}\n" +
+                "```\n" +
+                "\n" +
+                "- 响应结果:\n" +
+                "\n" +
+                "```json\n" +
+                "{\n" +
                 "    \"msg\": \"success\",\n" +
                 "    \"val\": [\n" +
                 "        {\n" +
-                "            \"objectId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",  \n" +
-                "            \"categoryName\": \"用电总量\",  //分类名称\n" +
-                "            \"categoryCode\": \"E100\",     //分类编码\n" +
-                "            \"parentId\": \"\",             //父级id\n" +
-                "            \"categoryLevel\": null,      //分类层级\n" +
-                "            \"meterType\": 1,             //能源类型(1：电/2：水/3：热能/4：热能) \n" +
-                "            \"selectStatus\": 1,          //勾选状态: 1选中,0没选中\n" +
-                "            \"meterSystemCategorys\": [\n" +
-                "                {\n" +
-                "                    \"objectId\": \"032d25fe-8c78-4b13-a422-67172fee3924\",\n" +
-                "                    \"categoryName\": \"戴聪从\",\n" +
-                "                    \"categoryCode\": \"DCC\",\n" +
-                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
-                "                    \"categoryLevel\": null,\n" +
-                "                    \"meterType\": 1,\n" +
-                "                    \"selectStatus\": 1,\n" +
-                "                    \"meterSystemCategorys\": [\n" +
-                "                        {\n" +
-                "                            \"objectId\": \"7a40a7fd-4eca-4caa-87d9-1079609cb6d0\",\n" +
-                "                            \"categoryName\": \"戴聪从1\",\n" +
-                "                            \"categoryCode\": \"DGCV\",\n" +
-                "                            \"parentId\": \"032d25fe-8c78-4b13-a422-67172fee3924\",\n" +
-                "                            \"categoryLevel\": null,\n" +
-                "                            \"meterType\": 1,\n" +
-                "                            \"selectStatus\": 0,\n" +
-                "                            \"meterSystemCategorys\": [\n" +
-                "                                {\n" +
-                "                                    \"objectId\": \"0c20ed42-2e89-4cdf-a2f1-998d5492b99a\",\n" +
-                "                                    \"categoryName\": \"戴聪从2\",\n" +
-                "                                    \"categoryCode\": \"JHGB\",\n" +
-                "                                    \"parentId\": \"7a40a7fd-4eca-4caa-87d9-1079609cb6d0\",\n" +
-                "                                    \"categoryLevel\": null,\n" +
-                "                                    \"meterType\": 1,\n" +
-                "                                    \"selectStatus\": 0,\n" +
-                "                                    \"meterSystemCategorys\": []\n" +
-                "                                }\n" +
-                "                            ]\n" +
-                "                        }\n" +
-                "                    ]\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"objectId\": \"0e4588c9-6297-4d97-9fd3-2060dd6be59c\",\n" +
-                "                    \"categoryName\": \"廖杨帆用电\",\n" +
-                "                    \"categoryCode\": \"LYF\",\n" +
-                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
-                "                    \"categoryLevel\": null,\n" +
-                "                    \"meterType\": 1,\n" +
-                "                    \"selectStatus\": 0,\n" +
-                "                    \"meterSystemCategorys\": []\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"objectId\": \"4bda20eb-31c3-49cf-a9bb-af540256b447\",\n" +
-                "                    \"categoryName\": \"分摊用电\",\n" +
-                "                    \"categoryCode\": \"FTYD\",\n" +
-                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
-                "                    \"categoryLevel\": null,\n" +
-                "                    \"meterType\": 1,\n" +
-                "                    \"selectStatus\": 0,\n" +
-                "                    \"meterSystemCategorys\": []\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"objectId\": \"54164c1b-81e9-43ad-8619-489b3c428592\",\n" +
-                "                    \"categoryName\": \"租户用电\",\n" +
-                "                    \"categoryCode\": \"E130\",\n" +
-                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
-                "                    \"categoryLevel\": null,\n" +
-                "                    \"meterType\": 1,\n" +
-                "                    \"selectStatus\": 1,\n" +
-                "                    \"meterSystemCategorys\": []\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"objectId\": \"7c54ce9c-cb78-4b84-8e2e-a784d639c862\",\n" +
-                "                    \"categoryName\": \"公区用电\",\n" +
-                "                    \"categoryCode\": \"GQYD\",\n" +
-                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
-                "                    \"categoryLevel\": null,\n" +
-                "                    \"meterType\": 1,\n" +
-                "                    \"selectStatus\": 0,\n" +
-                "                    \"meterSystemCategorys\": []\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"objectId\": \"ed52e8ce-8f0b-4010-b882-9b53e191897b\",\n" +
-                "                    \"categoryName\": \"租区用电\",\n" +
-                "                    \"categoryCode\": \"ZQYD\",\n" +
-                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
-                "                    \"categoryLevel\": null,\n" +
-                "                    \"meterType\": null,\n" +
-                "                    \"selectStatus\": 0,\n" +
-                "                    \"meterSystemCategorys\": []\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"objectId\": \"fa409edf-1c14-4c77-a081-b1328064cb7f\",\n" +
-                "                    \"categoryName\": \"马慧翔用电\",\n" +
-                "                    \"categoryCode\": \"MJHBV\",\n" +
-                "                    \"parentId\": \"8038392f-01af-4bf7-afa7-3126fa2a286c\",\n" +
-                "                    \"categoryLevel\": null,\n" +
-                "                    \"meterType\": 1,\n" +
-                "                    \"selectStatus\": 1,\n" +
-                "                    \"meterSystemCategorys\": []\n" +
-                "                }\n" +
-                "            ]\n" +
+                "            \"inspectType\": null,\n" +
+                "            \"endDate\": 1607097600000, // 计划结束日期\n" +
+                "            \"maintName\": null,\n" +
+                "            \"planName\": \"标准-N次-copy\", // 计划名称\n" +
+                "            \"planStatus\": 2, // 状态(0:未开始， 1:进行中； 2:已结束)\n" +
+                "            \"lineId\": null,\n" +
+                "            \"lineName\": null,\n" +
+                "            \"specialId\": null,\n" +
+                "            \"cycleType\": 1, // 巡检频次(1:日; 2:周; 3:月; 4:年)\n" +
+                "            \"specialName\": null,\n" +
+                "            \"planId\": null,\n" +
+                "            \"startSwitch\": false, // 是否启用(true:启用; false:未启用)\n" +
+                "            \"startDate\": 1605888000000, // 计划开始日期\n" +
+                "            \"createDate\": 1605764970000 // 创建时间\n" +
                 "        }\n" +
                 "    ],\n" +
+                "    \"code\": 200,\n" +
                 "    \"success\": 1\n" +
                 "}\n" +
                 "```";
@@ -645,12 +563,12 @@ public class 转整个gitee的md文件到showdoc {
                         "    暂无\n" +
                         "```";
             }
-            now = System.currentTimeMillis();
+//            now = System.currentTimeMillis();
             System.out.println(toWholeShowDoc2(origin));
-            for (int i=0;i<10000;i++){
-                System.out.println(toWholeShowDoc2(origin));
-            }
-            System.out.println("====================================执行一万次这个(处理文本的)花了多少毫秒"+(System.currentTimeMillis()-now));
+//            for (int i=0;i<10000;i++){
+//                System.out.println(toWholeShowDoc2(origin));
+//            }
+//            System.out.println("====================================执行一万次这个(处理文本的)花了多少毫秒"+(System.currentTimeMillis()-now));
         } else {
             throw new Exception("检查下这个接口文档的请求方式在哪");
         }
@@ -885,7 +803,7 @@ public class 转整个gitee的md文件到showdoc {
     private static String toShowDocMultiLevel(String origin, int pp, boolean isRes) throws Exception {
 
         // ,int pp
-//        System.out.println("==========================尝试多级传参===========================");
+        // System.out.println("==========================尝试多级传参===========================");
         // 检测重复(用于对象数组的情况)
         Set<String> variableName = new HashSet<>();
         Set<String> repeatingObject = new HashSet<>();
@@ -903,33 +821,47 @@ public class 转整个gitee的md文件到showdoc {
 //        (\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
 //        (^\x20\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
         // 更改,必须以空格开头,否则会匹配到换行符   (还是用原来的,但是上下相隔4个空字符才算孩子),其实两个就够了,因为一般也就多出一个\n,或者可以折中改为3个
-//     (\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)
+//     (\s*)(".*?)([0-9a-zA-Z]*)(".*?:.*?\s*?)(.*)(\s*?.*?)    加个这个试试^\x20*  ,不能加,不一定会空格开头
         String regExp = "(\\s*)(\".*?)([0-9a-zA-Z]*)(\".*?:.*?\\s*?)(.*)(\\s*?.*?)\n";
         Pattern pattern = Pattern.compile(regExp);
         Matcher matcher = pattern.matcher(origin);
         StringBuffer res = new StringBuffer();
         while (matcher.find()) {
-            sb3.append(matcher.group(1)).append(matcher.group(2)).append(matcher.group(3)).append(",");
-            sb2.append(matcher.group(1)).append(",");
-            sb.append(matcher.group(3)).append(",");
+            sb3.append(matcher.group(1)).append(matcher.group(2)).append(matcher.group(3)).append("STYP01");
+            sb.append(matcher.group(3)).append("STYP02");
+            sb2.append(matcher.group(1)).append("STYP03");
             // 描述文本里面经常有逗号,不常见#号,用#号好了
             // 刚刚发现的错误,#会被当做注释符号,那还是用其他的好了.
-            explain.append(matcher.group(5)).append("&");
-            wholeLine.append(matcher.group(0)).append("SplitTagYYP001");
+            explain.append(matcher.group(5)).append("STYP04");
+            wholeLine.append(matcher.group(0)).append("STYP05");
             // 匹配到的这串文本在原文本中所处的下标
             enterNum.add(matcher.end()-2);
 //            System.out.println("  +matcher.end() "+matcher.end());
         }
-        String[] sHeadArr = sb3.toString().split(",");
-        String[] sArr = changeUnderToUpperLetter(sb.toString()).split(",");
-        String[] spaceArr = sb2.toString().split(",");
-        String[] explainArr = explain.toString().split("&");
-        String[] wholeLineArr = wholeLine.toString().split("SplitTagYYP001");
+        // SplitTagYYP001 这个不知道会不会影响性能,可以缩减为  STYP01 啥的
+//        String[] sHeadArr = sb3.toString().split(",");
+//        String[] sArr = changeUnderToUpperLetter(sb.toString()).split(",");
+//        String[] spaceArr = sb2.toString().split(",");
+//        String[] explainArr = explain.toString().split("&");
+        String[] sHeadArr = sb3.toString().split("STYP01");
+        //  这个是之前的留着好了,其实已经是驼峰式了
+//        String[] sArr = changeUnderToUpperLetter(sb.toString()).split("STYP02");
+         String[] sArr = sb.toString().split("STYP02");
+        String[] spaceArr = sb2.toString().split("STYP03");
+        String[] explainArr = explain.toString().split("STYP04");
+        String[] wholeLineArr = wholeLine.toString().split("STYP05");
 //        boolean isChild = false;
         // 标记上次的缩进个数  刚开始初始化应该用
         int spaceNum = 0;
         if (sArr.length > 0) {
-            spaceNum = spaceArr[0].replace("\t", "    ").length();
+            // 补充,第一个的\n不能计入
+            // \n这个回车符暂时为止来源就是上一个对象括号集成来的,本行肯定是无的
+            String replace = spaceArr[0].replace("\t", "    ");
+            if (replace.contains("\n")){
+                replace = replace.substring(replace.indexOf("\n")+1);
+            }
+
+            spaceNum = replace.length();
         }
         // 一般来说缩进就是4个空格
         int tabSize = 4;
@@ -944,7 +876,11 @@ public class 转整个gitee的md文件到showdoc {
             // 不同层级的objectId给区分开来,同层级的不允许重复出现
 //            这个是用于判断是否该写入markdown表格的的key
             String key = sArr[i] + "" + spaceArr[i].length();
-            String nowSpaceLen = spaceArr[i].replace("\t", "    ");
+            String replace3 = spaceArr[i].replace("\t", "    ");
+            if (replace3.contains("\n")){
+                replace3 = replace3.substring(replace3.indexOf("\n")+1);
+            }
+            String nowSpaceLen = replace3;
             // 如果这个参数是前面有个对象或者对象数组,也就是这个参数对象或者对象数组的孩子,那么
             // 用来解决多对象啊或者多对象数组的问题,考虑以后暂时先不解决,感觉一般都是同表的不同type,其实没必要重复加字段
 //            if (isChild) {
@@ -963,8 +899,15 @@ public class 转整个gitee的md文件到showdoc {
 //                flag = -1;
 //                flagStr = "";
 //            }
-            // spaceNum是全局记录用的,spaceLen是当前的
-            int spaceLen = nowSpaceLen.length();
+            // spaceNum是全局记录用的,spaceLen是当前的   ,  一样,都去掉\n,如果这个参数是对象或者对象数组的对象内的第一个参数,会多出这些内容
+            String replace2 = nowSpaceLen.replace("\n", "");
+            // \n这个回车符暂时为止来源就是上一个对象括号集成来的,本行肯定是无的
+            if (replace2.contains("\n")){
+                replace2 = replace2.substring(replace2.indexOf("\n"));
+            }
+
+
+            int spaceLen = replace2.length();
 //            if (spaceArr[i].length() >= 8 && ("{".equals(explainArr[i - 1].replace(" ", "")) || "[".equals(explainArr[i - 1].replace(" ", "")))) {
             if (nowSpaceLen.length() >= 0) {
                 // 对象的孩子退四格
@@ -1079,6 +1022,10 @@ public class 转整个gitee的md文件到showdoc {
                     break;
                 }
             }
+            // 这个是否必填其实没有那么简单,
+//            因为有些描述是 如果 xx 为 xx 则必填/非必填   否则 必填/非必填
+            // 因为是口头用法,有时候有如果有时候没如果,如果还能换成假如,假设,可能还有错别字
+//            必填 可能对应不必填非必填,所以暂时不判断,检测到非必填就不必填
             for (String a : isRequired) {
                 if (explainStr.contains(a)) {
                     explainStr = explainStr.replace("（" + a + "）", "").replace("(" + a + ")", "")
@@ -1104,8 +1051,8 @@ public class 转整个gitee的md文件到showdoc {
                     .replace("（" + fieldTypePure + "）", "").replace(fieldTypePure, "")
                     .replace("[" + fieldTypePureUpper + "]", "").replace("(" + fieldTypePureUpper + ")", "")
                     .replace("（" + fieldTypePureUpper + "）", "").replace(fieldTypePureUpper, "")
-//                    就BigDecimal是有俩驼峰的
-                    .replace("BigDecimal","");
+//                    就BigDecimal是有俩驼峰的  去掉点多余逗号,一般不会那么多,多的话就多来几次
+                    .replace("BigDecimal","").replace(",,",",").replace("，，","，");
             res.append(fieldType);
             // 可以去掉一些空值,影响观感,有值的留着好了,做参考,  然后一些只有[  或者 {  这种就是数组或者一个对象
 
@@ -1173,11 +1120,15 @@ public class 转整个gitee的md文件到showdoc {
         }else if (explainStr.contains("bigdecimal") || explainStr.contains("BigDecimal")) {
             res = " | bigdecimal ";
         }
+//        (D|d)ouble   本来想着要不要换正则,但是这种单词也不复杂...
         else if (explainStr.contains("Double") || explainStr.contains("Double")) {
             res = " | double ";
         }
         else if (explainStr.contains("decimal") || explainStr.contains("Decimal")) {
             res = " | decimal ";
+        }
+        else if (explainStr.contains("file") || explainStr.contains("File")) {
+            res = " | file ";
         }
         return res;
     }
